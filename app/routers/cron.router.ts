@@ -3,7 +3,7 @@ import cronstrue from "cronstrue";
 import { requireQuery } from "../middleware/require-query";
 import { generateCron } from "../utils/llm";
 
-export const cronRouter = express();
+export const cronRouter = express.Router();
 
 cronRouter.get("/", requireQuery("description"), async (req, res) => {
   const description = req.query.description!.toString();

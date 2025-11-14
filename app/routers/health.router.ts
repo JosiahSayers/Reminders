@@ -1,7 +1,7 @@
 import express from "express";
 import { prisma } from "../../prisma/db";
 
-export const healthRouter = express();
+export const healthRouter = express.Router();
 
 healthRouter.get("/livez", (req, res) => {
   return res.sendStatus(200);

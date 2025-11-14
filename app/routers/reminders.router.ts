@@ -11,7 +11,7 @@ import { logger } from "../utils/logger";
 import { createJob, resetJob, stopJob } from "../utils/jobs";
 import { requireReminderExists } from "../middleware/require-reminder-exists";
 
-export const remindersRouter = express();
+export const remindersRouter = express.Router();
 
 const reminderSchema = zod.strictObject({
   title: zod.string(),
