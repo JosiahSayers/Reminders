@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client"
+    output = "./generated"
+    engineType = "client"
+    runtime = "bun"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("PRISMA_DATABASE_URL")
+}
+
+model Reminder {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  cron String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  archivedAt DateTime?
+
+  history ReminderHistory[]
+}
+
+model ReminderHistory {
+  id Int @id @default(autoincrement())
+  successful Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  reminder Reminder @relation(fields: [reminderId], references: [id])
+  reminderId Int
+}
