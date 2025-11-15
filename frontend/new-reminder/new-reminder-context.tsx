@@ -1,8 +1,18 @@
 import { createContext, useState, type PropsWithChildren } from "react";
+import z from "zod";
 
-interface FirstStepForm {
-  description: string;
-}
+export const scheduleFormSchema = z.object({
+  description: z.string().trim().min(1, { message: "Description is required" }),
+});
+
+type ScheduleForm = z.infer<typeof scheduleFormSchema>;
+
+export const detailsFormSchema = z.object({
+  title: z.string().trim().min(1, { message: "Title is required" }),
+  content: z.string().trim().min(1, { message: "Content is required" }),
+});
+
+type DetailsForm = z.infer<typeof detailsFormSchema>;
 
 export interface Cron {
   cron: string;
@@ -15,10 +25,13 @@ interface NewReminderContextInterface {
   previousStep: () => void;
   setStep: (step: number) => void;
   completed: boolean;
-  firstStepForm: FirstStepForm;
-  setFirstStepForm: (form: FirstStepForm) => void;
+  scheduleForm: ScheduleForm;
+  setScheduleForm: (form: ScheduleForm) => void;
   cron: Cron | null;
   setCron: (cron: Cron) => void;
+  detailsForm: DetailsForm;
+  setDetailsForm: (form: DetailsForm) => void;
+  validationError: boolean;
 }
 
 export const NewReminderContext = createContext<NewReminderContextInterface>({
@@ -27,12 +40,18 @@ export const NewReminderContext = createContext<NewReminderContextInterface>({
   previousStep: () => {},
   setStep: () => {},
   completed: false,
-  firstStepForm: {
+  scheduleForm: {
     description: "",
   },
-  setFirstStepForm: () => {},
+  setScheduleForm: () => {},
   cron: null,
   setCron: () => {},
+  detailsForm: {
+    title: "",
+    content: "",
+  },
+  setDetailsForm: () => {},
+  validationError: false,
 });
 
 interface NewReminderContextWrapperProps extends PropsWithChildren {
@@ -43,31 +62,66 @@ export function NewReminderContextWrapper({
   children,
   stepCount,
 }: NewReminderContextWrapperProps) {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
+  const [validationError, setValidationError] = useState(false);
   const completed = active >= stepCount;
-  const nextStep = () =>
-    setActive((current) => (current < stepCount ? current + 1 : current));
   const previousStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
+  const setStep = (newStep: number) => {
+    if (completed) return;
+    setActive(newStep);
+  };
 
-  const [firstStepForm, setFirstStepForm] = useState({
-    description: "Every first tuesday of the month at 3pm",
+  const [scheduleForm, setScheduleForm] = useState({
+    description: "",
+  });
+
+  const [detailsForm, setDetailsForm] = useState({
+    title: "",
+    content: "",
   });
 
   const [cron, setCron] = useState<NewReminderContextInterface["cron"]>(null);
+
+  const validateStep = (step: number) => {
+    try {
+      if (step === 0) {
+        scheduleFormSchema.parse(scheduleForm);
+      } else if (step === 2) {
+        detailsFormSchema.parse(detailsForm);
+      }
+
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const nextStep = () => {
+    const stepIsValid = validateStep(active);
+    if (stepIsValid) {
+      setValidationError(false);
+      setActive((current) => (current < stepCount ? current + 1 : current));
+    } else {
+      setValidationError(true);
+    }
+  };
 
   return (
     <NewReminderContext
       value={{
         step: active,
         completed,
-        setStep: setActive,
+        setStep,
         nextStep,
         previousStep,
-        firstStepForm,
-        setFirstStepForm,
+        scheduleForm,
+        setScheduleForm,
         cron,
         setCron,
+        detailsForm,
+        setDetailsForm,
+        validationError,
       }}
     >
       {children}

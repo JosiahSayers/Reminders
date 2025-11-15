@@ -14,10 +14,10 @@ import {
 import { IconInfoCircle } from "@tabler/icons-react";
 
 export default function SecondStep() {
-  const { firstStepForm, setCron } = useContext(NewReminderContext);
+  const { scheduleForm, setCron } = useContext(NewReminderContext);
   const [{ data, loading, error }, refetch] = useAxios<Cron>({
     url: "/api/cron",
-    params: { description: firstStepForm.description },
+    params: { description: scheduleForm.description },
   });
 
   const safeRefetch = async () => {
@@ -59,7 +59,7 @@ export default function SecondStep() {
   }
 
   if (data) {
-    setCron(data);
+    setTimeout(() => setCron(data), 0);
     return (
       <>
         <Text fz="h3" fw="bold">
@@ -78,5 +78,5 @@ export default function SecondStep() {
     );
   }
 
-  return "Here we will confirm the cron string and explanation returned by the api.";
+  return null;
 }
