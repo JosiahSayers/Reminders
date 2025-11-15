@@ -8,6 +8,7 @@
     "@types/express": "^5.0.5",
     "@types/react": "^19.2.4",
     "@types/react-dom": "^19.2.3",
+    "@types/request": "^2.48.13",
     "prisma": "^6.19.0"
   },
   "peerDependencies": {
@@ -17,11 +18,13 @@
     "@prisma/adapter-libsql": "^6.19.0",
     "@prisma/client": "^6.19.0",
     "ai": "^5.0.93",
+    "axios-hooks": "^5.1.1",
     "cron": "^4.3.4",
     "cronstrue": "^3.9.0",
     "express": "^5.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "request": "^2.88.2",
     "winston": "^3.18.3",
     "zod": "^4.1.12",
     "zod-validation-error": "^5.0.0"

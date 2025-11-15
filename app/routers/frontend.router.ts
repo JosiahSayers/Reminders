@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Readable } from "stream";
+import request from "request";
 import indexPage from "../../frontend/index.html";
 
 export const frontendRouter = Router();
@@ -13,10 +13,8 @@ if (!Bun.env.NODE_ENV || Bun.env.NODE_ENV === "development") {
     },
   });
 
-  frontendRouter.get("*path", async (req, res) => {
-    const resource = new URL(`http://localhost:${bunPort}${req.path}`);
-    resource.port = bunPort.toString();
-    const data = await fetch(resource);
-    Readable.fromWeb(data.body as any).pipe(res);
+  frontendRouter.use("*path", (req, res) => {
+    const url = `http://127.0.0.1:${bunPort}${req.originalUrl}`;
+    req.pipe(request(url)).pipe(res);
   });
 }

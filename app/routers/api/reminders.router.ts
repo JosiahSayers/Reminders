@@ -23,6 +23,11 @@ const partialReminderSchema = reminderSchema.partial();
 type ValidatedReminder = z.infer<typeof reminderSchema>;
 type ValidatedPartialReminder = z.infer<typeof partialReminderSchema>;
 
+remindersRouter.get("/", async (req, res, next) => {
+  const reminders = await prisma.reminder.findMany();
+  return res.json(reminders);
+});
+
 remindersRouter.post(
   "/",
   validateBody(reminderSchema),
