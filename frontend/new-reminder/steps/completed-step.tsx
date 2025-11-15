@@ -1,12 +1,14 @@
 import useAxios from "axios-hooks";
 import type { Reminder } from "../../../prisma/generated/browser";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NewReminderContext } from "../new-reminder-context";
 import { Alert, Button, Center, Loader, Stack } from "@mantine/core";
 import { IconCheck, IconInfoCircle } from "@tabler/icons-react";
+import { AppContext } from "../../app-context";
 
 export default function CompletedStep() {
   const { cron, detailsForm } = useContext(NewReminderContext);
+  const { fetchCounts } = useContext(AppContext);
   const [{ data, loading, error }, resubmit] = useAxios<Reminder>({
     url: "/api/reminders",
     method: "post",
@@ -24,6 +26,12 @@ export default function CompletedStep() {
       // do nothing, error state is already defined in the UI
     }
   };
+
+  useEffect(() => {
+    if (data && !loading && !error) {
+      fetchCounts();
+    }
+  }, [data, loading, error]);
 
   if (loading) {
     return (
