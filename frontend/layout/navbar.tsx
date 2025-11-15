@@ -1,19 +1,18 @@
-import { useLocation } from "wouter";
 import NavbarLink from "./navbar-link";
-import { Center, Stack } from "@mantine/core";
+import useAxios from "axios-hooks";
 
 export default function Navbar() {
-  const [location] = useLocation();
-
-  const isRouteActive = (route: string) => {
-    return location === route;
-  };
+  const [{ data: counts }] = useAxios("/api/reminders/counts");
 
   return (
-    <Stack>
-      <NavbarLink href="/" title="Active Reminders" />
+    <>
+      <NavbarLink
+        href="/"
+        title="Active Reminders"
+        count={counts?.activeReminderCount}
+      />
 
       <NavbarLink href="/new-reminder" title="New Reminder" />
-    </Stack>
+    </>
   );
 }

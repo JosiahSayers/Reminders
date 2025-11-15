@@ -1,13 +1,14 @@
-import { NavLink } from "@mantine/core";
+import { Badge, NavLink } from "@mantine/core";
 import { Link, useRoute } from "wouter";
 import { IconChevronRight } from "@tabler/icons-react";
 
 interface Props {
   href: string;
   title: string;
+  count?: number;
 }
 
-export default function NavbarLink({ href, title }: Props) {
+export default function NavbarLink({ href, title, count }: Props) {
   const [isActiveRoute] = useRoute(href);
 
   return (
@@ -16,6 +17,13 @@ export default function NavbarLink({ href, title }: Props) {
       label={title}
       active={isActiveRoute}
       component={Link}
+      leftSection={
+        count ? (
+          <Badge size="xs" circle>
+            {count}
+          </Badge>
+        ) : null
+      }
       rightSection={
         <IconChevronRight
           size={12}

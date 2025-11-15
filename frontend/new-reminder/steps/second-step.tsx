@@ -1,0 +1,82 @@
+import useAxios from "axios-hooks";
+import { type Cron, NewReminderContext } from "../new-reminder-context";
+import { useContext } from "react";
+import {
+  Alert,
+  Blockquote,
+  Button,
+  Center,
+  Code,
+  Loader,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { IconInfoCircle } from "@tabler/icons-react";
+
+export default function SecondStep() {
+  const { firstStepForm, setCron } = useContext(NewReminderContext);
+  const [{ data, loading, error }, refetch] = useAxios<Cron>({
+    url: "/api/cron",
+    params: { description: firstStepForm.description },
+  });
+
+  const safeRefetch = async () => {
+    try {
+      await refetch();
+    } catch {
+      // do nothing, error state is already defined in the UI
+    }
+  };
+
+  if (loading) {
+    return (
+      <Center>
+        <Loader type="bars" />
+      </Center>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert
+        variant="light"
+        color="red"
+        title="Something went wrong"
+        icon={<IconInfoCircle />}
+      >
+        <Stack>
+          There was a problem on our end.{" "}
+          <Button
+            onClick={() => safeRefetch()}
+            variant="outline"
+            w="fit-content"
+          >
+            Try again
+          </Button>
+        </Stack>
+      </Alert>
+    );
+  }
+
+  if (data) {
+    setCron(data);
+    return (
+      <>
+        <Text fz="h3" fw="bold">
+          Here's what I think you meant
+        </Text>
+        <Blockquote py="sm" ml="lg" my="lg" w="fit-content">
+          {data.explanation}
+        </Blockquote>
+        <Text mb="md">
+          If this doesn't seem right you can go back and update your prompt.
+        </Text>
+        <Text fz="sm">
+          Here is the cron string that was generated: <Code>{data.cron}</Code>
+        </Text>
+      </>
+    );
+  }
+
+  return "Here we will confirm the cron string and explanation returned by the api.";
+}

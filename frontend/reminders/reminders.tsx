@@ -12,7 +12,7 @@ export default function Reminders() {
 
   return (
     <Center>
-      <Stack w="40%">
+      <Stack w="45%">
         {reminders.map((reminder) => (
           <ReminderComponent
             reminder={reminder}

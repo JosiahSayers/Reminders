@@ -1,9 +1,10 @@
-import { AppShell, Burger } from "@mantine/core";
+import { AppShell, Box, Burger, Flex, Group, Title } from "@mantine/core";
 import Mantine from "./mantine";
 import Reminders from "./reminders/reminders";
 import { useDisclosure } from "@mantine/hooks";
 import { Route, Switch } from "wouter";
 import Navbar from "./layout/navbar";
+import NewReminderPage from "./new-reminder/new-reminder-page";
 
 export default function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -20,9 +21,16 @@ export default function App() {
         }}
       >
         <AppShell.Header>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Group h="100%" px="md">
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="sm"
+            />
 
-          <div>Reminders</div>
+            <Title>Reminders</Title>
+          </Group>
         </AppShell.Header>
 
         <AppShell.Navbar>
@@ -30,16 +38,16 @@ export default function App() {
         </AppShell.Navbar>
 
         <AppShell.Main>
-          <Switch>
-            <Route path="/" component={Reminders} />
+          <Box px="xl">
+            <Switch>
+              <Route path="/" component={Reminders} />
 
-            <Route path="/users/:name">
-              {(params) => <>Hello, {params.name}!</>}
-            </Route>
+              <Route path="/new-reminder" component={NewReminderPage} />
 
-            {/* Default route in a switch */}
-            <Route>404: No such page!</Route>
-          </Switch>
+              {/* Default route in a switch */}
+              <Route>404: No such page!</Route>
+            </Switch>
+          </Box>
         </AppShell.Main>
       </AppShell>
     </Mantine>

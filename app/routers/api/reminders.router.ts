@@ -31,6 +31,13 @@ remindersRouter.get("/", async (req, res, next) => {
   return res.json(reminders);
 });
 
+remindersRouter.get("/counts", async (req, res, next) => {
+  const activeReminderCount = await prisma.reminder.count({
+    where: { archivedAt: null },
+  });
+  return res.json({ activeReminderCount });
+});
+
 remindersRouter.post(
   "/",
   validateBody(reminderSchema),
