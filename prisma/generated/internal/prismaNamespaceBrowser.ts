@@ -71,6 +71,7 @@ export const ReminderScalarFieldEnum = {
   title: 'title',
   content: 'content',
   cron: 'cron',
+  cronExplanation: 'cronExplanation',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   archivedAt: 'archivedAt'

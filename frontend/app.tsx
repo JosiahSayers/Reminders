@@ -1,6 +1,6 @@
 import { AppShell, Burger } from "@mantine/core";
 import Mantine from "./mantine";
-import Reminders from "./reminders";
+import Reminders from "./reminders/reminders";
 import { useDisclosure } from "@mantine/hooks";
 
 export default function App() {

@@ -18,6 +18,7 @@ model Reminder {
   title String
   content String
   cron String
+  cronExplanation String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -39,6 +39,7 @@ export type ReminderMinAggregateOutputType = {
   title: string | null
   content: string | null
   cron: string | null
+  cronExplanation: string | null
   createdAt: Date | null
   updatedAt: Date | null
   archivedAt: Date | null
@@ -49,6 +50,7 @@ export type ReminderMaxAggregateOutputType = {
   title: string | null
   content: string | null
   cron: string | null
+  cronExplanation: string | null
   createdAt: Date | null
   updatedAt: Date | null
   archivedAt: Date | null
@@ -59,6 +61,7 @@ export type ReminderCountAggregateOutputType = {
   title: number
   content: number
   cron: number
+  cronExplanation: number
   createdAt: number
   updatedAt: number
   archivedAt: number
@@ -79,6 +82,7 @@ export type ReminderMinAggregateInputType = {
   title?: true
   content?: true
   cron?: true
+  cronExplanation?: true
   createdAt?: true
   updatedAt?: true
   archivedAt?: true
@@ -89,6 +93,7 @@ export type ReminderMaxAggregateInputType = {
   title?: true
   content?: true
   cron?: true
+  cronExplanation?: true
   createdAt?: true
   updatedAt?: true
   archivedAt?: true
@@ -99,6 +104,7 @@ export type ReminderCountAggregateInputType = {
   title?: true
   content?: true
   cron?: true
+  cronExplanation?: true
   createdAt?: true
   updatedAt?: true
   archivedAt?: true
@@ -196,6 +202,7 @@ export type ReminderGroupByOutputType = {
   title: string
   content: string
   cron: string
+  cronExplanation: string
   createdAt: Date
   updatedAt: Date
   archivedAt: Date | null
@@ -229,6 +236,7 @@ export type ReminderWhereInput = {
   title?: Prisma.StringFilter<"Reminder"> | string
   content?: Prisma.StringFilter<"Reminder"> | string
   cron?: Prisma.StringFilter<"Reminder"> | string
+  cronExplanation?: Prisma.StringFilter<"Reminder"> | string
   createdAt?: Prisma.DateTimeFilter<"Reminder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reminder"> | Date | string
   archivedAt?: Prisma.DateTimeNullableFilter<"Reminder"> | Date | string | null
@@ -240,6 +248,7 @@ export type ReminderOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   cron?: Prisma.SortOrder
+  cronExplanation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -254,6 +263,7 @@ export type ReminderWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Reminder"> | string
   content?: Prisma.StringFilter<"Reminder"> | string
   cron?: Prisma.StringFilter<"Reminder"> | string
+  cronExplanation?: Prisma.StringFilter<"Reminder"> | string
   createdAt?: Prisma.DateTimeFilter<"Reminder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reminder"> | Date | string
   archivedAt?: Prisma.DateTimeNullableFilter<"Reminder"> | Date | string | null
@@ -265,6 +275,7 @@ export type ReminderOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   cron?: Prisma.SortOrder
+  cronExplanation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -283,6 +294,7 @@ export type ReminderScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
   content?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
   cron?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
+  cronExplanation?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Reminder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Reminder"> | Date | string
   archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reminder"> | Date | string | null
@@ -292,6 +304,7 @@ export type ReminderCreateInput = {
   title: string
   content: string
   cron: string
+  cronExplanation: string
   createdAt?: Date | string
   updatedAt?: Date | string
   archivedAt?: Date | string | null
@@ -303,6 +316,7 @@ export type ReminderUncheckedCreateInput = {
   title: string
   content: string
   cron: string
+  cronExplanation: string
   createdAt?: Date | string
   updatedAt?: Date | string
   archivedAt?: Date | string | null
@@ -313,6 +327,7 @@ export type ReminderUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   cron?: Prisma.StringFieldUpdateOperationsInput | string
+  cronExplanation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -324,6 +339,7 @@ export type ReminderUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   cron?: Prisma.StringFieldUpdateOperationsInput | string
+  cronExplanation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -335,6 +351,7 @@ export type ReminderCreateManyInput = {
   title: string
   content: string
   cron: string
+  cronExplanation: string
   createdAt?: Date | string
   updatedAt?: Date | string
   archivedAt?: Date | string | null
@@ -344,6 +361,7 @@ export type ReminderUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   cron?: Prisma.StringFieldUpdateOperationsInput | string
+  cronExplanation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -354,6 +372,7 @@ export type ReminderUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   cron?: Prisma.StringFieldUpdateOperationsInput | string
+  cronExplanation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -364,6 +383,7 @@ export type ReminderCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   cron?: Prisma.SortOrder
+  cronExplanation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
@@ -378,6 +398,7 @@ export type ReminderMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   cron?: Prisma.SortOrder
+  cronExplanation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
@@ -388,6 +409,7 @@ export type ReminderMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   cron?: Prisma.SortOrder
+  cronExplanation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
@@ -440,6 +462,7 @@ export type ReminderCreateWithoutHistoryInput = {
   title: string
   content: string
   cron: string
+  cronExplanation: string
   createdAt?: Date | string
   updatedAt?: Date | string
   archivedAt?: Date | string | null
@@ -450,6 +473,7 @@ export type ReminderUncheckedCreateWithoutHistoryInput = {
   title: string
   content: string
   cron: string
+  cronExplanation: string
   createdAt?: Date | string
   updatedAt?: Date | string
   archivedAt?: Date | string | null
@@ -475,6 +499,7 @@ export type ReminderUpdateWithoutHistoryInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   cron?: Prisma.StringFieldUpdateOperationsInput | string
+  cronExplanation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -485,6 +510,7 @@ export type ReminderUncheckedUpdateWithoutHistoryInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   cron?: Prisma.StringFieldUpdateOperationsInput | string
+  cronExplanation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -526,6 +552,7 @@ export type ReminderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   title?: boolean
   content?: boolean
   cron?: boolean
+  cronExplanation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   archivedAt?: boolean
@@ -538,6 +565,7 @@ export type ReminderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   title?: boolean
   content?: boolean
   cron?: boolean
+  cronExplanation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   archivedAt?: boolean
@@ -548,6 +576,7 @@ export type ReminderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   title?: boolean
   content?: boolean
   cron?: boolean
+  cronExplanation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   archivedAt?: boolean
@@ -558,12 +587,13 @@ export type ReminderSelectScalar = {
   title?: boolean
   content?: boolean
   cron?: boolean
+  cronExplanation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   archivedAt?: boolean
 }
 
-export type ReminderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "cron" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["reminder"]>
+export type ReminderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "cron" | "cronExplanation" | "createdAt" | "updatedAt" | "archivedAt", ExtArgs["result"]["reminder"]>
 export type ReminderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   history?: boolean | Prisma.Reminder$historyArgs<ExtArgs>
   _count?: boolean | Prisma.ReminderCountOutputTypeDefaultArgs<ExtArgs>
@@ -581,6 +611,7 @@ export type $ReminderPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     title: string
     content: string
     cron: string
+    cronExplanation: string
     createdAt: Date
     updatedAt: Date
     archivedAt: Date | null
@@ -1012,6 +1043,7 @@ export interface ReminderFieldRefs {
   readonly title: Prisma.FieldRef<"Reminder", 'String'>
   readonly content: Prisma.FieldRef<"Reminder", 'String'>
   readonly cron: Prisma.FieldRef<"Reminder", 'String'>
+  readonly cronExplanation: Prisma.FieldRef<"Reminder", 'String'>
   readonly createdAt: Prisma.FieldRef<"Reminder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Reminder", 'DateTime'>
   readonly archivedAt: Prisma.FieldRef<"Reminder", 'DateTime'>

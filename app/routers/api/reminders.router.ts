@@ -10,6 +10,7 @@ import { validateCronExpression } from "cron";
 import { logger } from "../../utils/logger";
 import { createJob, resetJob, stopJob } from "../../utils/jobs";
 import { requireReminderExists } from "../../middleware/require-reminder-exists";
+import cronstrue from "cronstrue";
 
 export const remindersRouter = express.Router();
 
@@ -24,7 +25,9 @@ type ValidatedReminder = z.infer<typeof reminderSchema>;
 type ValidatedPartialReminder = z.infer<typeof partialReminderSchema>;
 
 remindersRouter.get("/", async (req, res, next) => {
-  const reminders = await prisma.reminder.findMany();
+  const reminders = await prisma.reminder.findMany({
+    where: { archivedAt: null },
+  });
   return res.json(reminders);
 });
 
@@ -43,7 +46,10 @@ remindersRouter.post(
 
     try {
       const reminder = await prisma.reminder.create({
-        data: req.body,
+        data: {
+          ...req.body,
+          cronExplanation: cronstrue.toString(req.body.cron),
+        },
       });
       createJob(reminder);
       return res.json(reminder);
