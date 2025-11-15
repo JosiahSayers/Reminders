@@ -55,7 +55,7 @@ export default function Reminder({ reminder, onDelete }: Props) {
         </Group>
       </Card.Section>
 
-      <Text size="sm" mt="sm">
+      <Text size="sm" mt="sm" style={{ whiteSpace: "pre-wrap" }}>
         {reminder.content}
       </Text>
     </Card>
