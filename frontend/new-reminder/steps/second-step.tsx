@@ -15,10 +15,13 @@ import { IconInfoCircle } from "@tabler/icons-react";
 
 export default function SecondStep() {
   const { scheduleForm, setCron } = useContext(NewReminderContext);
-  const [{ data, loading, error }, refetch] = useAxios<Cron>({
-    url: "/api/cron",
-    params: { description: scheduleForm.description },
-  });
+  const [{ data, loading, error }, refetch] = useAxios<Cron>(
+    {
+      url: "/api/cron",
+      params: { description: scheduleForm.description },
+    },
+    { useCache: false }
+  );
 
   const safeRefetch = async () => {
     try {

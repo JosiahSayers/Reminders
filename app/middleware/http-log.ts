@@ -12,11 +12,16 @@ export const httpLog = (req: Request, res: Response, next: NextFunction) => {
     ipList: req.ips,
   };
 
+  const isMutation = ["post", "put", "patch"].includes(
+    req.method.toLowerCase()
+  );
+
   res.on("finish", () => {
     logger.http("HTTP Request", {
       ...logMeta,
       status: res.status,
       duration: Date.now() - start,
+      body: isMutation ? req.body : undefined,
     });
   });
 

@@ -6,6 +6,7 @@ import { frontendRouter } from "./frontend.router";
 import { apiRouter } from "./api/api.router";
 
 export const app = express();
+app.use(express.json());
 
 app.use(httpLog);
 
