@@ -5,16 +5,36 @@ async function main() {
   await prisma.reminder.createManyAndReturn({
     data: [
       {
-        title: "30 Seconds",
-        content: "This reminder should run every 30 seconds",
+        title: "Vacuum Downstairs",
+        content: `⠀⠀⢀⣤⠶⠟⠛⠛⠛⠛⠛⠛⠛⠷⠶⢤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢉⣠⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠙⢷⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠉⠛⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢛⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠠⠀⠀⠀⠀⠀⠀⢀⣀⡈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀
+⠀⢠⣶⣶⣤⣤⣤⣤⣤⣀⣈⡙⠛⠻⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀
+⠀⢸⣿⠿⠛⠋⠛⠻⣿⣿⣿⣿⣿⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀
+⠀⢸⡏⢠⣾⣿⣿⣦⠈⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣈⣀⠀⠀⠀⠀
+⠀⠀⠃⠘⣿⣿⣿⠟⠀⠿⠿⠿⠿⠿⠃⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⡀⠀`,
         cron: "*/30 * * * * *",
         cronExplanation: cronstrue.toString("*/30 * * * * *"),
       },
       {
-        title: "2 minutes",
-        content: "This reminder should run every 2 minutes",
+        title: "Fold Laundry",
+        content:
+          "What's better than a clean closet full of ready to wear outfits?",
         cron: "*/2 * * * *",
         cronExplanation: cronstrue.toString("*/2 * * * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 18 * * 2",
+        cronExplanation: cronstrue.toString("0 18 * * 2"),
       },
     ],
   });

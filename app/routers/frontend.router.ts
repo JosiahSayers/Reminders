@@ -9,7 +9,7 @@ if (!Bun.env.NODE_ENV || Bun.env.NODE_ENV === "development") {
   Bun.serve({
     port: bunPort,
     routes: {
-      "/": indexPage,
+      "/*": indexPage,
     },
   });
 
