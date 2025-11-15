@@ -1,11 +1,24 @@
 import { Box, Button, Group, Stepper } from "@mantine/core";
-import { useContext } from "react";
+import { useContext, type PropsWithChildren } from "react";
 import { NewReminderContext } from "./new-reminder-context";
 import { useLocation } from "wouter";
 import FirstStep from "./steps/first-step";
 import SecondStep from "./steps/second-step";
 import ThirdStep from "./steps/third-step";
 import CompletedStep from "./steps/completed-step";
+
+const StepWrapper = ({ children }: PropsWithChildren) => {
+  return (
+    <Box
+      p={{
+        base: "xs",
+        md: "xl",
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
 
 export default function Steps() {
   const { step, setStep, previousStep, nextStep, completed } =
@@ -16,24 +29,24 @@ export default function Steps() {
     <>
       <Stepper active={step} onStepClick={setStep}>
         <Stepper.Step label="Schedule" description="When to send">
-          <Box p="xl">
+          <StepWrapper>
             <FirstStep />
-          </Box>
+          </StepWrapper>
         </Stepper.Step>
         <Stepper.Step label="Confirm Schedule">
-          <Box p="xl">
+          <StepWrapper>
             <SecondStep />
-          </Box>
+          </StepWrapper>
         </Stepper.Step>
         <Stepper.Step label="Details" description="What to send">
-          <Box p="xl">
+          <StepWrapper>
             <ThirdStep />
-          </Box>
+          </StepWrapper>
         </Stepper.Step>
         <Stepper.Completed>
-          <Box p="xl">
+          <StepWrapper>
             <CompletedStep />
-          </Box>
+          </StepWrapper>
         </Stepper.Completed>
       </Stepper>
 

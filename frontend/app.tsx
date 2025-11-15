@@ -2,13 +2,19 @@ import { AppShell, Box, Burger, Flex, Group, Title } from "@mantine/core";
 import Mantine from "./mantine";
 import Reminders from "./reminders/reminders";
 import { useDisclosure } from "@mantine/hooks";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import Navbar from "./layout/navbar";
 import NewReminderPage from "./new-reminder/new-reminder-page";
 import { AppContextWrapper } from "./app-context";
+import { useEffect } from "react";
 
 export default function App() {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close }] = useDisclosure();
+  const [location] = useLocation();
+
+  useEffect(() => {
+    close();
+  }, [location]);
 
   return (
     <Mantine>
