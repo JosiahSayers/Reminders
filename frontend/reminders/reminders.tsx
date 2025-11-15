@@ -1,4 +1,4 @@
-import { Center, Loader, Stack } from "@mantine/core";
+import { Center, Flex, Loader, Stack } from "@mantine/core";
 import useAxios from "axios-hooks";
 import type { Reminder } from "../../prisma/generated/browser";
 import ReminderComponent from "./reminder";
@@ -15,7 +15,7 @@ export default function Reminders() {
 
   return (
     <Center>
-      <Stack w="45%">
+      <Flex gap="xl" wrap="wrap" justify="center">
         {reminders.map((reminder) => (
           <ReminderComponent
             reminder={reminder}
@@ -26,7 +26,7 @@ export default function Reminders() {
             key={reminder.id}
           />
         ))}
-      </Stack>
+      </Flex>
     </Center>
   );
 }

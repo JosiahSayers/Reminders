@@ -20,7 +20,15 @@ export default function Reminder({ reminder, onDelete }: Props) {
   }
 
   return (
-    <Card radius="md" padding="md" withBorder>
+    <Card
+      radius="md"
+      padding="md"
+      w={{
+        base: "100%",
+        md: "500px",
+      }}
+      withBorder
+    >
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between">
           <Stack>
