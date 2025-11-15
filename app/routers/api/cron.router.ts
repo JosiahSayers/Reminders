@@ -1,7 +1,7 @@
 import express from "express";
 import cronstrue from "cronstrue";
-import { requireQuery } from "../middleware/require-query";
-import { generateCron } from "../utils/llm";
+import { requireQuery } from "../../middleware/require-query";
+import { generateCron } from "../../utils/llm";
 
 export const cronRouter = express.Router();
 

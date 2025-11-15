@@ -1,15 +1,15 @@
 import express, { type Response } from "express";
-import { zod } from "../utils/validation";
+import { zod } from "../../utils/validation";
 import {
   validateBody,
   type ValidatedRequest,
-} from "../middleware/validate-body";
+} from "../../middleware/validate-body";
 import type z from "zod";
-import { prisma } from "../../prisma/db";
+import { prisma } from "../../../prisma/db";
 import { validateCronExpression } from "cron";
-import { logger } from "../utils/logger";
-import { createJob, resetJob, stopJob } from "../utils/jobs";
-import { requireReminderExists } from "../middleware/require-reminder-exists";
+import { logger } from "../../utils/logger";
+import { createJob, resetJob, stopJob } from "../../utils/jobs";
+import { requireReminderExists } from "../../middleware/require-reminder-exists";
 
 export const remindersRouter = express.Router();
 
