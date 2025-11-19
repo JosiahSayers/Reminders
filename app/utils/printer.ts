@@ -27,33 +27,14 @@ export async function getPrinter() {
 export async function printReminder(reminder: Reminder) {
   const printer = await getPrinter();
 
-  // Title
-  printer.alignCenter();
-  printer.underline(true);
-  printer.bold(true);
-  printer.setTextDoubleHeight();
-  printer.println(reminder.title);
+  printTitle(printer, reminder.title);
   printer.newLine();
 
-  // Content
-  printer.underline(false);
-  printer.bold(false);
-  printer.setTextNormal();
-  printer.alignLeft();
-  // Sequential newline characters get truncated to a single newline. This forces them to print correctly.
-  reminder.content.split("\n").forEach((segment) => {
-    if (segment) {
-      printer.println(segment);
-    } else {
-      printer.newLine();
-    }
-  });
+  printLongContent(printer, reminder.content);
   printer.newLine();
 
-  // Logo
   printer.drawLine();
-  printer.alignCenter();
-  await printer.printImage("./app/assets/logo.png");
+  await printLogo(printer);
 
   printer.cut();
 
@@ -62,4 +43,34 @@ export async function printReminder(reminder: Reminder) {
   } catch (e) {
     logger.error("Failed to print reminder", e, { reminder });
   }
+}
+
+function printTitle(printer: ThermalPrinter, title: string) {
+  printer.alignCenter();
+  printer.underline(true);
+  printer.bold(true);
+  printer.setTextDoubleHeight();
+
+  printer.println(title);
+
+  printer.underline(false);
+  printer.bold(false);
+  printer.setTextNormal();
+  printer.alignLeft();
+}
+
+function printLongContent(printer: ThermalPrinter, content: string) {
+  // Sequential newline characters get truncated to a single newline. This forces them to print correctly.
+  content.split("\n").forEach((segment) => {
+    if (segment) {
+      printer.println(segment);
+    } else {
+      printer.newLine();
+    }
+  });
+}
+
+async function printLogo(printer: ThermalPrinter) {
+  printer.alignCenter();
+  await printer.printImage("./app/assets/logo.png");
 }
