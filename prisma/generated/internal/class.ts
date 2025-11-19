@@ -27,8 +27,8 @@ const config: runtime.GetPrismaClientConfig = {
       "fromEnvVar": null
     },
     "config": {
-      "runtime": "bun",
-      "engineType": "client"
+      "engineType": "client",
+      "runtime": "bun"
     },
     "binaryTargets": [
       {
@@ -56,8 +56,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider   = \"prisma-client\"\n  output     = \"./generated\"\n  engineType = \"client\"\n  runtime    = \"bun\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"PRISMA_DATABASE_URL\")\n}\n\nmodel Reminder {\n  id              Int    @id @default(autoincrement())\n  title           String\n  content         String\n  cron            String\n  cronExplanation String\n\n  createdAt  DateTime  @default(now())\n  updatedAt  DateTime  @updatedAt\n  archivedAt DateTime?\n\n  history ReminderHistory[]\n}\n\nmodel ReminderHistory {\n  id         Int     @id @default(autoincrement())\n  successful Boolean\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  reminder   Reminder @relation(fields: [reminderId], references: [id])\n  reminderId Int\n}\n",
-  "inlineSchemaHash": "ade6da6db63287c3879e6d938a061527905c7f80b0bce43dd298b834c436ac73",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider   = \"prisma-client\"\n  output     = \"./generated\"\n  engineType = \"client\"\n  runtime    = \"bun\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"PRISMA_DATABASE_URL\")\n}\n\nmodel Reminder {\n  id              Int    @id @default(autoincrement())\n  title           String\n  content         String\n  cron            String\n  cronExplanation String\n\n  createdAt  DateTime  @default(now())\n  updatedAt  DateTime  @updatedAt\n  archivedAt DateTime?\n\n  history ReminderHistory[]\n}\n\nmodel ReminderHistory {\n  id         Int     @id @default(autoincrement())\n  successful Boolean\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  reminder   Reminder @relation(fields: [reminderId], references: [id])\n  reminderId Int\n}\n\nmodel Message {\n  id         Int     @id @default(autoincrement())\n  successful Boolean\n\n  title       String?\n  content     String\n  includeLogo Boolean @default(true)\n\n  createdAt DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "47487856b5926b0c2d52b6070d43fc4553ec18840a1145d0469ea94104d914ba",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
@@ -67,7 +67,7 @@ const config: runtime.GetPrismaClientConfig = {
   "dirname": ""
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Reminder\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cron\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cronExplanation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"archivedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"history\",\"kind\":\"object\",\"type\":\"ReminderHistory\",\"relationName\":\"ReminderToReminderHistory\"}],\"dbName\":null},\"ReminderHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"successful\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"reminder\",\"kind\":\"object\",\"type\":\"Reminder\",\"relationName\":\"ReminderToReminderHistory\"},{\"name\":\"reminderId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Reminder\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cron\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cronExplanation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"archivedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"history\",\"kind\":\"object\",\"type\":\"ReminderHistory\",\"relationName\":\"ReminderToReminderHistory\"}],\"dbName\":null},\"ReminderHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"successful\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"reminder\",\"kind\":\"object\",\"type\":\"Reminder\",\"relationName\":\"ReminderToReminderHistory\"},{\"name\":\"reminderId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Message\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"successful\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"includeLogo\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 config.engineWasm = undefined
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
@@ -235,6 +235,16 @@ export interface PrismaClient<
     * ```
     */
   get reminderHistory(): Prisma.ReminderHistoryDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
+    * ```
+    */
+  get message(): Prisma.MessageDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(dirname: string): PrismaClientConstructor {

@@ -37,3 +37,14 @@ model ReminderHistory {
   reminder Reminder @relation(fields: [reminderId], references: [id])
   reminderId Int
 }
+
+model Message {
+  id Int @id @default(autoincrement())
+  successful Boolean
+
+  title String?
+  content String
+  includeLogo Boolean @default(true)
+
+  createdAt DateTime @default(now())
+}

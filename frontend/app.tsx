@@ -7,6 +7,7 @@ import Navbar from "./layout/navbar";
 import NewReminderPage from "./new-reminder/new-reminder-page";
 import { AppContextWrapper } from "./app-context";
 import { useEffect } from "react";
+import OneTimeMessagePage from "./one-time-message/one-time-message-page";
 
 export default function App() {
   const [opened, { toggle, close }] = useDisclosure();
@@ -20,10 +21,6 @@ export default function App() {
     <Mantine>
       <AppContextWrapper>
         <AppShell
-          padding={{
-            sm: "xs",
-            md: "md",
-          }}
           header={{ height: 60 }}
           navbar={{
             width: 300,
@@ -50,7 +47,7 @@ export default function App() {
 
           <AppShell.Main>
             <Box
-              px={{
+              p={{
                 sm: "xs",
                 md: "xl",
               }}
@@ -59,6 +56,8 @@ export default function App() {
                 <Route path="/" component={Reminders} />
 
                 <Route path="/new-reminder" component={NewReminderPage} />
+
+                <Route path="/new-message" component={OneTimeMessagePage} />
 
                 {/* Default route in a switch */}
                 <Route>404: No such page!</Route>

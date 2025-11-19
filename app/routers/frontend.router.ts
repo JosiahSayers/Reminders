@@ -8,6 +8,14 @@ const bunPort = Number(Bun.env.PORT) + 1;
 Bun.serve({
   port: bunPort,
   routes: {
+    "/favicon.ico": new Response(
+      await Bun.file("./frontend/favicon.ico").bytes(),
+      {
+        headers: {
+          "Content-Type": "image/x-icon",
+        },
+      }
+    ),
     "/*": indexPage,
   },
   development: Bun.env.NODE_ENV === "development",
