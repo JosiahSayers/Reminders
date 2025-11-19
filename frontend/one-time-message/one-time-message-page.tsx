@@ -1,17 +1,10 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Fieldset,
-  Stack,
-  Textarea,
-  TextInput,
-} from "@mantine/core";
-import { useState } from "react";
+import { Box, Button, Fieldset, Textarea, TextInput } from "@mantine/core";
+import { useEffect, useState } from "react";
 import z from "zod";
 import type { Message } from "../../prisma/generated/browser";
 import useAxios from "axios-hooks";
-import { IconInfoCircle } from "@tabler/icons-react";
+import { IconReceipt, IconX } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
 
 const formSchema = z.object({
   title: z.string().optional(),
@@ -22,7 +15,7 @@ export default function OneTimeMessagePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [{ data, loading, error }, resubmit] = useAxios<Message>(
+  const [{ data, loading, error }, submit] = useAxios<Message>(
     {
       url: "/api/messages",
       method: "post",
@@ -34,6 +27,31 @@ export default function OneTimeMessagePage() {
     { manual: true }
   );
 
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+
+    if (error) {
+      notifications.show({
+        autoClose: 5000,
+        title: "Something went wrong",
+        message:
+          "There was a problem on our end. You can try and send the message again.",
+        color: "red",
+        icon: <IconX />,
+      });
+    } else if (data) {
+      notifications.show({
+        autoClose: 5000,
+        title: "Message sent!",
+        message: "It should be on the printer now.",
+        color: "green",
+        icon: <IconReceipt />,
+      });
+    }
+  }, [data, error, loading]);
+
   const { error: formError, success: formIsValid } = formSchema.safeParse({
     title,
     content,
@@ -41,9 +59,9 @@ export default function OneTimeMessagePage() {
   const getError = (property: string) =>
     formError?.issues.find((issue) => issue.path[0] === property)?.message;
 
-  const safeResubmit = async () => {
+  const safeSubmit = async () => {
     try {
-      await resubmit();
+      await submit();
     } catch {
       // do nothing, error state is already defined in the UI
     }
@@ -73,34 +91,13 @@ export default function OneTimeMessagePage() {
           onClick={(e) => {
             setFormSubmitted(true);
             if (formIsValid) {
-              console.log("Send it!");
+              safeSubmit();
             }
           }}
           loading={loading}
         >
           Send
         </Button>
-
-        {error ? (
-          <Alert
-            variant="light"
-            color="red"
-            title="Something went wrong"
-            icon={<IconInfoCircle />}
-            mt="xl"
-          >
-            <Stack>
-              There was a problem on our end.{" "}
-              <Button
-                onClick={() => safeResubmit()}
-                variant="outline"
-                w="fit-content"
-              >
-                Try again
-              </Button>
-            </Stack>
-          </Alert>
-        ) : null}
       </Fieldset>
     </Box>
   );

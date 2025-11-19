@@ -23,6 +23,7 @@
   "dependencies": {
     "@mantine/core": "^8.3.7",
     "@mantine/hooks": "^8.3.7",
+    "@mantine/notifications": "^8.3.8",
     "@prisma/adapter-libsql": "^6.19.0",
     "@prisma/client": "^6.19.0",
     "@tabler/icons-react": "^3.35.0",

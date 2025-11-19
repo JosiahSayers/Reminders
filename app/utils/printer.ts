@@ -5,7 +5,7 @@ import {
   BreakLine,
 } from "node-thermal-printer";
 import { logger } from "./logger";
-import type { Reminder } from "../../prisma/generated/client";
+import type { Message, Reminder } from "../../prisma/generated/client";
 
 export async function getPrinter() {
   const printer = new ThermalPrinter({
@@ -24,7 +24,15 @@ export async function getPrinter() {
   return printer;
 }
 
+function shouldPrint() {
+  return Bun.env.SEND_TO_PRINTER?.toLowerCase() === "true";
+}
+
 export async function printReminder(reminder: Reminder) {
+  if (!shouldPrint()) {
+    return;
+  }
+
   const printer = await getPrinter();
 
   printTitle(printer, reminder.title);
@@ -42,6 +50,36 @@ export async function printReminder(reminder: Reminder) {
     await printer.execute();
   } catch (e) {
     logger.error("Failed to print reminder", e, { reminder });
+  }
+}
+
+export async function printMessage(message: Message) {
+  if (!shouldPrint()) {
+    return;
+  }
+
+  const printer = await getPrinter();
+
+  if (message.title) {
+    printTitle(printer, message.title);
+    printer.newLine();
+  }
+
+  printLongContent(printer, message.content);
+  printer.newLine();
+
+  if (message.includeLogo) {
+    printer.drawLine();
+    await printLogo(printer);
+  }
+
+  printer.cut();
+
+  try {
+    await printer.execute();
+  } catch (e) {
+    logger.error("Failed to print message", e, { message });
+    throw e;
   }
 }
 

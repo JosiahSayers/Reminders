@@ -20,6 +20,6 @@ export const validateBody =
         zodError: e,
         body: req.body,
       });
-      return res.json({ errors: validationError.message }).status(400);
+      return res.status(400).json({ errors: validationError.message });
     }
   };

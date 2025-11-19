@@ -8,6 +8,7 @@ import NewReminderPage from "./new-reminder/new-reminder-page";
 import { AppContextWrapper } from "./app-context";
 import { useEffect } from "react";
 import OneTimeMessagePage from "./one-time-message/one-time-message-page";
+import { Notifications } from "@mantine/notifications";
 
 export default function App() {
   const [opened, { toggle, close }] = useDisclosure();
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <Mantine>
+      <Notifications />
       <AppContextWrapper>
         <AppShell
           header={{ height: 60 }}
