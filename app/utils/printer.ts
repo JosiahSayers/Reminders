@@ -2,6 +2,7 @@ import {
   ThermalPrinter,
   PrinterTypes,
   CharacterSet,
+  BreakLine,
 } from "node-thermal-printer";
 import { logger } from "./logger";
 import type { Reminder } from "../../prisma/generated/client";
@@ -12,6 +13,7 @@ export async function getPrinter() {
     interface: `tcp://${Bun.env.PRINTER_IP}`,
     characterSet: CharacterSet.PC852_LATIN2,
     width: 42,
+    breakLine: BreakLine.WORD,
   });
 
   const isConnected = await printer.isPrinterConnected();
@@ -46,6 +48,7 @@ export async function printReminder(reminder: Reminder) {
       printer.newLine();
     }
   });
+  printer.newLine();
 
   // Logo
   printer.drawLine();

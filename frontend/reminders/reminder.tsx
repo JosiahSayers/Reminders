@@ -45,12 +45,6 @@ export default function Reminder({ reminder, onDelete }: Props) {
             </Menu.Target>
 
             <Menu.Dropdown onChange={(e) => console.log(e)}>
-              <Menu.Item leftSection={<IconFileZip size={14} />}>
-                Download zip
-              </Menu.Item>
-              <Menu.Item leftSection={<IconEye size={14} />}>
-                Preview all
-              </Menu.Item>
               <Menu.Item
                 leftSection={<IconTrash size={14} />}
                 color="red"

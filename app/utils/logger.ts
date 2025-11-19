@@ -34,7 +34,7 @@ if (Bun.env.NODE_ENV !== "production") {
 
 function getLogDirectory() {
   if (Bun.env.NODE_ENV === "production") {
-    return "/src/usr/app/logs";
+    return "/usr/src/app/logs";
   }
 
   return "./logs";

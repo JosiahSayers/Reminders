@@ -19,3 +19,7 @@ logger.info("Application started", {
   scheduledReminderCount: allJobs.size,
   port,
 });
+
+if (Bun.env.NODE_ENV === "production") {
+  console.log("App started!");
+}
