@@ -1,7 +1,8 @@
 import { Fieldset, Textarea, TextInput } from "@mantine/core";
 import { detailsFormSchema, NewReminderContext } from "../new-reminder-context";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import cronstrue from "cronstrue";
+import HowToCron from "../how-to-cron";
 
 export default function ThirdStep() {
   const { detailsForm, setDetailsForm, validationError } =
@@ -66,7 +67,10 @@ export default function ThirdStep() {
         }}
         description="Return to the first step to change this value"
         error={getError("cron")}
+        mb="xl"
       />
+
+      <HowToCron />
     </Fieldset>
   );
 }

@@ -20,7 +20,10 @@ export default function App() {
     <Mantine>
       <AppContextWrapper>
         <AppShell
-          padding="md"
+          padding={{
+            sm: "xs",
+            md: "md",
+          }}
           header={{ height: 60 }}
           navbar={{
             width: 300,
@@ -46,7 +49,12 @@ export default function App() {
           </AppShell.Navbar>
 
           <AppShell.Main>
-            <Box px="xl">
+            <Box
+              px={{
+                sm: "xs",
+                md: "xl",
+              }}
+            >
               <Switch>
                 <Route path="/" component={Reminders} />
 
