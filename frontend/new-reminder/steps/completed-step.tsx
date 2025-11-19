@@ -7,7 +7,7 @@ import { IconCheck, IconInfoCircle } from "@tabler/icons-react";
 import { AppContext } from "../../app-context";
 
 export default function CompletedStep() {
-  const { cron, detailsForm } = useContext(NewReminderContext);
+  const { detailsForm } = useContext(NewReminderContext);
   const { fetchCounts } = useContext(AppContext);
   const [{ data, loading, error }, resubmit] = useAxios<Reminder>({
     url: "/api/reminders",
@@ -15,7 +15,7 @@ export default function CompletedStep() {
     data: {
       title: detailsForm.title,
       content: detailsForm.content,
-      cron: cron?.cron,
+      cron: detailsForm.cron,
     },
   });
 

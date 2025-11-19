@@ -9,7 +9,9 @@ export async function executeReminder(reminder: Reminder) {
   try {
     // todo: replace with actual implementation
     logger.verbose("Sending reminder", { reminder });
-    await printReminder(reminder);
+    if (Bun.env.SEND_TO_PRINTER?.toLowerCase() === "true") {
+      await printReminder(reminder);
+    }
   } catch (e) {
     successful = false;
     logger.error("Error sending reminder", e, { reminder });

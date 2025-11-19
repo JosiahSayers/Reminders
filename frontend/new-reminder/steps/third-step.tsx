@@ -1,15 +1,15 @@
 import { Fieldset, Textarea, TextInput } from "@mantine/core";
 import { detailsFormSchema, NewReminderContext } from "../new-reminder-context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import cronstrue from "cronstrue";
 
 export default function ThirdStep() {
-  const { cron, detailsForm, setDetailsForm, validationError } =
+  const { detailsForm, setDetailsForm, validationError } =
     useContext(NewReminderContext);
   const { error: zodError } = detailsFormSchema.safeParse(detailsForm);
   const getError = (property: string) =>
     zodError?.issues.find((issue) => issue.path[0] === property)?.message;
 
-  //   return "Here we will ask for details about the reminder such as what to title it and what the content should be. Then we will send all of the information to the api to create a new reminder.";
   return (
     <Fieldset legend="Details">
       <TextInput
@@ -40,16 +40,32 @@ export default function ThirdStep() {
       />
       <TextInput
         label="Schedule Description"
-        value={cron?.explanation}
+        value={detailsForm.cronExplanation}
         disabled
         mb="md"
         description="Return to the first step to change this value"
+        error={getError("cron")}
       />
       <TextInput
         label="Cron"
-        value={cron?.cron}
-        disabled
+        value={detailsForm.cron}
+        onChange={(e) => {
+          const safeCronExplanation = () => {
+            try {
+              return cronstrue.toString(e.target.value);
+            } catch (e: any) {
+              return "";
+            }
+          };
+
+          setDetailsForm({
+            ...detailsForm,
+            cron: e.target.value,
+            cronExplanation: safeCronExplanation(),
+          });
+        }}
         description="Return to the first step to change this value"
+        error={getError("cron")}
       />
     </Fieldset>
   );

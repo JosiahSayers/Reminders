@@ -14,7 +14,8 @@ import {
 import { IconInfoCircle } from "@tabler/icons-react";
 
 export default function SecondStep() {
-  const { scheduleForm, setCron } = useContext(NewReminderContext);
+  const { scheduleForm, setCron, detailsForm, setDetailsForm } =
+    useContext(NewReminderContext);
   const [{ data, loading, error }, refetch] = useAxios<Cron>(
     {
       url: "/api/cron",
@@ -63,6 +64,16 @@ export default function SecondStep() {
 
   if (data) {
     setTimeout(() => setCron(data), 0);
+    setTimeout(
+      () =>
+        setDetailsForm({
+          ...detailsForm,
+          cron: data.cron,
+          cronExplanation: data.explanation,
+        }),
+      0
+    );
+
     return (
       <>
         <Text fz="h3" fw="bold">
@@ -72,7 +83,8 @@ export default function SecondStep() {
           {data.explanation}
         </Blockquote>
         <Text mb="md">
-          If this doesn't seem right you can go back and update your prompt.
+          If this doesn't seem right you can either go back and update your
+          prompt or continue on and manually change details in the next step.
         </Text>
         <Text fz="sm">
           Here is the cron string that was generated: <Code>{data.cron}</Code>

@@ -1,5 +1,6 @@
 import { createContext, useState, type PropsWithChildren } from "react";
 import z from "zod";
+import cronstrue from "cronstrue";
 
 export const scheduleFormSchema = z.object({
   description: z.string().trim().min(1, { message: "Description is required" }),
@@ -10,6 +11,25 @@ type ScheduleForm = z.infer<typeof scheduleFormSchema>;
 export const detailsFormSchema = z.object({
   title: z.string().trim().min(1, { message: "Title is required" }),
   content: z.string().trim().min(1, { message: "Content is required" }),
+  cronExplanation: z
+    .string()
+    .trim()
+    .min(1, { message: "Cron Explanation is required" }),
+  cron: z
+    .string()
+    .trim()
+    .min(1, { message: "Cron is required" })
+    .superRefine((value, context) => {
+      try {
+        cronstrue.toString(value);
+      } catch (e: any) {
+        context.addIssue({
+          code: "invalid_format",
+          message: e,
+          format: "* * * * *",
+        });
+      }
+    }),
 });
 
 type DetailsForm = z.infer<typeof detailsFormSchema>;
@@ -35,7 +55,7 @@ interface NewReminderContextInterface {
 }
 
 export const NewReminderContext = createContext<NewReminderContextInterface>({
-  step: 1,
+  step: 0,
   nextStep: () => {},
   previousStep: () => {},
   setStep: () => {},
@@ -49,6 +69,8 @@ export const NewReminderContext = createContext<NewReminderContextInterface>({
   detailsForm: {
     title: "",
     content: "",
+    cronExplanation: "",
+    cron: "",
   },
   setDetailsForm: () => {},
   validationError: false,
@@ -72,13 +94,15 @@ export function NewReminderContextWrapper({
     setActive(newStep);
   };
 
-  const [scheduleForm, setScheduleForm] = useState({
+  const [scheduleForm, setScheduleForm] = useState<ScheduleForm>({
     description: "",
   });
 
-  const [detailsForm, setDetailsForm] = useState({
+  const [detailsForm, setDetailsForm] = useState<DetailsForm>({
     title: "",
     content: "",
+    cronExplanation: "",
+    cron: "",
   });
 
   const [cron, setCron] = useState<NewReminderContextInterface["cron"]>(null);
