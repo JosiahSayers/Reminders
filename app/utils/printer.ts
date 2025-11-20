@@ -13,7 +13,7 @@ export async function getPrinter() {
     interface: `tcp://${Bun.env.PRINTER_IP}`,
     characterSet: CharacterSet.PC852_LATIN2,
     width: 42,
-    breakLine: BreakLine.WORD,
+    breakLine: BreakLine.CHARACTER, // WORD and CHARACTER are swapped in the logic. https://github.com/Klemen1337/node-thermal-printer/issues/273
   });
 
   const isConnected = await printer.isPrinterConnected();
