@@ -6,8 +6,10 @@ import { useContext } from "react";
 import { AppContext } from "../app-context";
 
 export default function Reminders() {
-  const [{ data: reminders, loading }, refetch] =
-    useAxios<Reminder[]>("/api/reminders");
+  const [{ data: reminders, loading }, refetch] = useAxios<Reminder[]>(
+    "/api/reminders",
+    { useCache: false }
+  );
   const { fetchCounts } = useContext(AppContext);
 
   if (loading) return <Loader />;
