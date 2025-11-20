@@ -21,9 +21,21 @@ const StepWrapper = ({ children }: PropsWithChildren) => {
 };
 
 export default function Steps() {
-  const { step, setStep, previousStep, nextStep, completed } =
+  const { step, setStep, previousStep, nextStep, completed, lastStep } =
     useContext(NewReminderContext);
   const [location, navigate] = useLocation();
+
+  const getStepText = () => {
+    if (completed) {
+      return "Done";
+    }
+
+    if (lastStep) {
+      return "Create";
+    }
+
+    return "Next Step";
+  };
 
   return (
     <>
@@ -55,7 +67,7 @@ export default function Steps() {
           Back
         </Button>
         <Button onClick={() => (completed ? navigate("/") : nextStep())}>
-          {completed ? "Done" : "Next step"}
+          {getStepText()}
         </Button>
       </Group>
     </>

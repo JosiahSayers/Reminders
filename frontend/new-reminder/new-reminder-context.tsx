@@ -45,6 +45,7 @@ interface NewReminderContextInterface {
   previousStep: () => void;
   setStep: (step: number) => void;
   completed: boolean;
+  lastStep: boolean;
   scheduleForm: ScheduleForm;
   setScheduleForm: (form: ScheduleForm) => void;
   cron: Cron | null;
@@ -60,6 +61,7 @@ export const NewReminderContext = createContext<NewReminderContextInterface>({
   previousStep: () => {},
   setStep: () => {},
   completed: false,
+  lastStep: false,
   scheduleForm: {
     description: "",
   },
@@ -93,6 +95,7 @@ export function NewReminderContextWrapper({
     if (completed) return;
     setActive(newStep);
   };
+  const lastStep = active === 2;
 
   const [scheduleForm, setScheduleForm] = useState<ScheduleForm>({
     description: "",
@@ -136,6 +139,7 @@ export function NewReminderContextWrapper({
       value={{
         step: active,
         completed,
+        lastStep,
         setStep,
         nextStep,
         previousStep,

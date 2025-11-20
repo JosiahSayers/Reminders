@@ -4,5 +4,4 @@
   - Allow disabling logo
   - Allow custom image
 - Reminder Creation Flow
-  - Rename button on last step to "create" instead of "next step"
   - Allow bypassing AI generated cron
