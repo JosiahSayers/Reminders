@@ -1,4 +1,3 @@
-- Fix axios cache of reminder list, right now it's not refreshed after a reminder is created
 - Allow editing of an existing reminder
 - One Time Messages
   - Reset form after successful send
