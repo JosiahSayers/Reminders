@@ -1,6 +1,5 @@
 - Allow editing of an existing reminder
 - One Time Messages
-  - Reset form after successful send
   - Allow disabling logo
   - Allow custom image
 - Reminder Creation Flow

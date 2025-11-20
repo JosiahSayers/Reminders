@@ -27,6 +27,12 @@ export default function OneTimeMessagePage() {
     { manual: true }
   );
 
+  const resetForm = () => {
+    setTitle("");
+    setContent("");
+    setFormSubmitted(false);
+  };
+
   useEffect(() => {
     if (loading) {
       return;
@@ -42,6 +48,7 @@ export default function OneTimeMessagePage() {
         icon: <IconX />,
       });
     } else if (data) {
+      resetForm();
       notifications.show({
         autoClose: 5000,
         title: "Message sent!",
@@ -88,7 +95,7 @@ export default function OneTimeMessagePage() {
         />
 
         <Button
-          onClick={(e) => {
+          onClick={() => {
             setFormSubmitted(true);
             if (formIsValid) {
               safeSubmit();
