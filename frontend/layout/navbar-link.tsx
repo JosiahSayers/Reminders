@@ -17,13 +17,7 @@ export default function NavbarLink({ href, title, count }: Props) {
       label={title}
       active={isActiveRoute}
       component={Link}
-      leftSection={
-        count ? (
-          <Badge size="xs" circle>
-            {count}
-          </Badge>
-        ) : null
-      }
+      leftSection={count ? <Badge circle>{count}</Badge> : null}
       rightSection={
         <IconChevronRight
           size={12}

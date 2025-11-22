@@ -19,22 +19,92 @@ async function main() {
 ⠀⢸⣿⠿⠛⠋⠛⠻⣿⣿⣿⣿⣿⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀
 ⠀⢸⡏⢠⣾⣿⣿⣦⠈⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣈⣀⠀⠀⠀⠀
 ⠀⠀⠃⠘⣿⣿⣿⠟⠀⠿⠿⠿⠿⠿⠃⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⡀⠀`,
-        cron: "*/30 * * * * *",
-        cronExplanation: cronstrue.toString("*/30 * * * * *"),
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
       },
       {
         title: "Fold Laundry",
         content:
           "What's better than a clean closet full of ready to wear outfits?",
-        cron: "*/2 * * * *",
-        cronExplanation: cronstrue.toString("*/2 * * * *"),
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
       },
       {
         title: "Clean Downstairs Toilet",
         content:
           "It's that time again. The bowl is getting messy and nobody wants that.",
-        cron: "0 18 * * 2",
-        cronExplanation: cronstrue.toString("0 18 * * 2"),
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
+      },
+      {
+        title: "Clean Downstairs Toilet",
+        content:
+          "It's that time again. The bowl is getting messy and nobody wants that.",
+        cron: "0 0 0 1 * *",
+        cronExplanation: cronstrue.toString("0 0 0 1 * *"),
       },
     ],
   });
