@@ -1,6 +1,5 @@
 - Allow editing of an existing reminder
 - One Time Messages
   - Allow disabling logo
-  - Allow custom image
 - Reminder Creation Flow
   - Allow bypassing AI generated cron

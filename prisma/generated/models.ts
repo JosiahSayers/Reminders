@@ -11,4 +11,5 @@
 export type * from './models/Reminder.ts'
 export type * from './models/ReminderHistory.ts'
 export type * from './models/Message.ts'
+export type * from './models/Image.ts'
 export type * from './commonInputTypes.ts'

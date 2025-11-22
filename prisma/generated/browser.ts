@@ -32,3 +32,8 @@ export type ReminderHistory = Prisma.ReminderHistoryModel
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model Image
+ * 
+ */
+export type Image = Prisma.ImageModel

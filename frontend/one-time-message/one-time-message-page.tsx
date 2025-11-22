@@ -1,7 +1,14 @@
-import { Box, Button, Fieldset, Textarea, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Fieldset,
+  FileInput,
+  Stack,
+  Textarea,
+  TextInput,
+} from "@mantine/core";
 import { useEffect, useState } from "react";
 import z from "zod";
-import type { Message } from "../../prisma/generated/browser";
 import useAxios from "axios-hooks";
 import { IconReceipt, IconX } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
@@ -14,14 +21,19 @@ const formSchema = z.object({
 export default function OneTimeMessagePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [{ data, loading, error }, submit] = useAxios<Message>(
+  const [{ data, loading, error }, submit] = useAxios(
     {
       url: "/api/messages",
       method: "post",
       data: {
         title,
         content,
+        image,
+      },
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
     },
     { manual: true }
@@ -30,6 +42,7 @@ export default function OneTimeMessagePage() {
   const resetForm = () => {
     setTitle("");
     setContent("");
+    setImage(null);
     setFormSubmitted(false);
   };
 
@@ -77,34 +90,46 @@ export default function OneTimeMessagePage() {
   return (
     <Box px={{ base: "xs", md: "xl" }}>
       <Fieldset legend="Send a one time message">
-        <TextInput
-          label="Title"
-          description="A title is optional and can be left blank"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
+        <Stack>
+          <TextInput
+            label="Title"
+            description="A title is optional and can be left blank"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
 
-        <Textarea
-          label="Message"
-          mb="md"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          error={formSubmitted && getError("content")}
-        />
+          <Textarea
+            label="Message"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            error={formSubmitted && getError("content")}
+          />
 
-        <Button
-          onClick={() => {
-            setFormSubmitted(true);
-            if (formIsValid) {
-              safeSubmit();
-            }
-          }}
-          loading={loading}
-        >
-          Send
-        </Button>
+          <FileInput
+            label="Image"
+            description="An image to be printed with your message. This is optional."
+            value={image}
+            onChange={setImage}
+            accept="image/png,image/jpeg"
+            clearable
+          />
+
+          <Button
+            onClick={() => {
+              setFormSubmitted(true);
+              if (formIsValid) {
+                safeSubmit();
+              }
+            }}
+            loading={loading}
+            mt="md"
+            w="fit-content"
+          >
+            Send
+          </Button>
+        </Stack>
       </Fieldset>
     </Box>
   );

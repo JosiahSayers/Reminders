@@ -7,34 +7,49 @@ import {
 import { prisma } from "../../../prisma/db";
 import { logger } from "../../utils/logger";
 import { printMessage } from "../../utils/printer";
+import multer from "multer";
+import { processImage } from "../../utils/image-processor";
 
 export const messagesRouter = express.Router();
+const upload = multer();
 
 const messageSchema = z.strictObject({
   title: z.string().optional(),
   content: z.string(),
 });
 
-type ValidatedMessage = z.infer<typeof messageSchema>;
-
 messagesRouter.post(
   "/",
+  upload.single("image"),
   validateBody(messageSchema),
-  async (req: ValidatedRequest<ValidatedMessage>, res, next) => {
+  async (req, res, next) => {
     try {
       let message = await prisma.message.create({
         data: {
-          ...req.body,
+          title: req.body.title,
+          content: req.body.content,
           successful: false,
+          includeLogo: false,
         },
       });
-      await printMessage(message);
+
+      if (req.file) {
+        await processImage(req.file, message);
+      }
+
+      const messageWithImage = await prisma.message.findUnique({
+        where: { id: message.id },
+        include: { image: true },
+      });
+
+      await printMessage(messageWithImage!);
+
       message = await prisma.message.update({
         where: { id: message.id },
         data: { successful: true },
       });
 
-      return res.json(message);
+      return res.sendStatus(201);
     } catch (e) {
       logger.error(e);
       return res.sendStatus(500);

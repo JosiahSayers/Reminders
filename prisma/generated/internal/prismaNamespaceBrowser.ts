@@ -51,7 +51,8 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 export const ModelName = {
   Reminder: 'Reminder',
   ReminderHistory: 'ReminderHistory',
-  Message: 'Message'
+  Message: 'Message',
+  Image: 'Image'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -102,6 +103,19 @@ export const MessageScalarFieldEnum = {
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const ImageScalarFieldEnum = {
+  id: 'id',
+  originalSizeInBytes: 'originalSizeInBytes',
+  originalFilename: 'originalFilename',
+  convertedSizeInBytes: 'convertedSizeInBytes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  messageId: 'messageId'
+} as const
+
+export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
 
 
 export const SortOrder = {

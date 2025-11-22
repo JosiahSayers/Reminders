@@ -224,6 +224,7 @@ export type MessageWhereInput = {
   content?: Prisma.StringFilter<"Message"> | string
   includeLogo?: Prisma.BoolFilter<"Message"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
+  image?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }
 
 export type MessageOrderByWithRelationInput = {
@@ -233,6 +234,7 @@ export type MessageOrderByWithRelationInput = {
   content?: Prisma.SortOrder
   includeLogo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  image?: Prisma.ImageOrderByWithRelationInput
 }
 
 export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -245,6 +247,7 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.StringFilter<"Message"> | string
   includeLogo?: Prisma.BoolFilter<"Message"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
+  image?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
 }, "id">
 
 export type MessageOrderByWithAggregationInput = {
@@ -279,6 +282,7 @@ export type MessageCreateInput = {
   content: string
   includeLogo?: boolean
   createdAt?: Date | string
+  image?: Prisma.ImageCreateNestedOneWithoutMessageInput
 }
 
 export type MessageUncheckedCreateInput = {
@@ -288,6 +292,7 @@ export type MessageUncheckedCreateInput = {
   content: string
   includeLogo?: boolean
   createdAt?: Date | string
+  image?: Prisma.ImageUncheckedCreateNestedOneWithoutMessageInput
 }
 
 export type MessageUpdateInput = {
@@ -296,6 +301,7 @@ export type MessageUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  image?: Prisma.ImageUpdateOneWithoutMessageNestedInput
 }
 
 export type MessageUncheckedUpdateInput = {
@@ -305,6 +311,7 @@ export type MessageUncheckedUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  image?: Prisma.ImageUncheckedUpdateOneWithoutMessageNestedInput
 }
 
 export type MessageCreateManyInput = {
@@ -368,8 +375,77 @@ export type MessageSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type MessageScalarRelationFilter = {
+  is?: Prisma.MessageWhereInput
+  isNot?: Prisma.MessageWhereInput
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type MessageCreateNestedOneWithoutImageInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutImageInput, Prisma.MessageUncheckedCreateWithoutImageInput>
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutImageInput
+  connect?: Prisma.MessageWhereUniqueInput
+}
+
+export type MessageUpdateOneRequiredWithoutImageNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageCreateWithoutImageInput, Prisma.MessageUncheckedCreateWithoutImageInput>
+  connectOrCreate?: Prisma.MessageCreateOrConnectWithoutImageInput
+  upsert?: Prisma.MessageUpsertWithoutImageInput
+  connect?: Prisma.MessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MessageUpdateToOneWithWhereWithoutImageInput, Prisma.MessageUpdateWithoutImageInput>, Prisma.MessageUncheckedUpdateWithoutImageInput>
+}
+
+export type MessageCreateWithoutImageInput = {
+  successful: boolean
+  title?: string | null
+  content: string
+  includeLogo?: boolean
+  createdAt?: Date | string
+}
+
+export type MessageUncheckedCreateWithoutImageInput = {
+  id?: number
+  successful: boolean
+  title?: string | null
+  content: string
+  includeLogo?: boolean
+  createdAt?: Date | string
+}
+
+export type MessageCreateOrConnectWithoutImageInput = {
+  where: Prisma.MessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.MessageCreateWithoutImageInput, Prisma.MessageUncheckedCreateWithoutImageInput>
+}
+
+export type MessageUpsertWithoutImageInput = {
+  update: Prisma.XOR<Prisma.MessageUpdateWithoutImageInput, Prisma.MessageUncheckedUpdateWithoutImageInput>
+  create: Prisma.XOR<Prisma.MessageCreateWithoutImageInput, Prisma.MessageUncheckedCreateWithoutImageInput>
+  where?: Prisma.MessageWhereInput
+}
+
+export type MessageUpdateToOneWithWhereWithoutImageInput = {
+  where?: Prisma.MessageWhereInput
+  data: Prisma.XOR<Prisma.MessageUpdateWithoutImageInput, Prisma.MessageUncheckedUpdateWithoutImageInput>
+}
+
+export type MessageUpdateWithoutImageInput = {
+  successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MessageUncheckedUpdateWithoutImageInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -381,6 +457,7 @@ export type MessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   content?: boolean
   includeLogo?: boolean
   createdAt?: boolean
+  image?: boolean | Prisma.Message$imageArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
 
 export type MessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -411,10 +488,17 @@ export type MessageSelectScalar = {
 }
 
 export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "successful" | "title" | "content" | "includeLogo" | "createdAt", ExtArgs["result"]["message"]>
+export type MessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  image?: boolean | Prisma.Message$imageArgs<ExtArgs>
+}
+export type MessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type MessageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Message"
-  objects: {}
+  objects: {
+    image: Prisma.$ImagePayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     successful: boolean
@@ -816,6 +900,7 @@ readonly fields: MessageFieldRefs;
  */
 export interface Prisma__MessageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  image<T extends Prisma.Message$imageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Message$imageArgs<ExtArgs>>): Prisma.Prisma__ImageClient<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -868,6 +953,10 @@ export type MessageFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  /**
    * Filter, which Message to fetch.
    */
   where: Prisma.MessageWhereUniqueInput
@@ -886,6 +975,10 @@ export type MessageFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  /**
    * Filter, which Message to fetch.
    */
   where: Prisma.MessageWhereUniqueInput
@@ -903,6 +996,10 @@ export type MessageFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Message
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
   /**
    * Filter, which Message to fetch.
    */
@@ -952,6 +1049,10 @@ export type MessageFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  /**
    * Filter, which Message to fetch.
    */
   where?: Prisma.MessageWhereInput
@@ -1000,6 +1101,10 @@ export type MessageFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  /**
    * Filter, which Messages to fetch.
    */
   where?: Prisma.MessageWhereInput
@@ -1042,6 +1147,10 @@ export type MessageCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Message
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
   /**
    * The data needed to create a Message.
    */
@@ -1088,6 +1197,10 @@ export type MessageUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Message
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
   /**
    * The data needed to update a Message.
    */
@@ -1155,6 +1268,10 @@ export type MessageUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  /**
    * The filter to search for the Message to update in case it exists.
    */
   where: Prisma.MessageWhereUniqueInput
@@ -1181,6 +1298,10 @@ export type MessageDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  /**
    * Filter which Message to delete.
    */
   where: Prisma.MessageWhereUniqueInput
@@ -1201,6 +1322,25 @@ export type MessageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Message.image
+ */
+export type Message$imageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Image
+   */
+  select?: Prisma.ImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Image
+   */
+  omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  where?: Prisma.ImageWhereInput
+}
+
+/**
  * Message without action
  */
 export type MessageDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1212,4 +1352,8 @@ export type MessageDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Message
    */
   omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
 }

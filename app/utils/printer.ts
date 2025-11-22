@@ -5,7 +5,8 @@ import {
   BreakLine,
 } from "node-thermal-printer";
 import { logger } from "./logger";
-import type { Message, Reminder } from "../../prisma/generated/client";
+import type { Image, Message, Reminder } from "../../prisma/generated/client";
+import { uploadFolder } from "./image-processor";
 
 export async function getPrinter() {
   const printer = new ThermalPrinter({
@@ -53,7 +54,7 @@ export async function printReminder(reminder: Reminder) {
   }
 }
 
-export async function printMessage(message: Message) {
+export async function printMessage(message: Message & { image: Image | null }) {
   if (!shouldPrint()) {
     return;
   }
@@ -67,6 +68,12 @@ export async function printMessage(message: Message) {
 
   printLongContent(printer, message.content);
   printer.newLine();
+
+  if (message.image) {
+    const file = `${uploadFolder}/compressed/${message.image.id}.png`;
+    printer.alignCenter();
+    await printer.printImage(file);
+  }
 
   if (message.includeLogo) {
     printer.drawLine();
