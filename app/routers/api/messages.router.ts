@@ -16,21 +16,27 @@ const upload = multer();
 const messageSchema = z.strictObject({
   title: z.string().optional(),
   content: z.string().optional(),
-  includeLogo: z.boolean().optional(),
+  includeLogo: z
+    .string()
+    .toLowerCase()
+    .transform((x) => x === "true")
+    .pipe(z.boolean()),
 });
+
+type MessageSchema = z.infer<typeof messageSchema>;
 
 messagesRouter.post(
   "/",
   upload.single("image"),
   validateBody(messageSchema),
-  async (req, res, next) => {
+  async (req: ValidatedRequest<MessageSchema>, res, next) => {
     try {
       let message = await prisma.message.create({
         data: {
-          title: req.body.title,
-          content: req.body.content,
+          title: req.validatedBody.title,
+          content: req.validatedBody.content,
           successful: false,
-          includeLogo: req.body.includeLogo ?? true,
+          includeLogo: req.validatedBody.includeLogo ?? true,
         },
       });
 

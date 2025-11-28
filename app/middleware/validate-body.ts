@@ -3,7 +3,11 @@ import type { ZodObject } from "zod";
 import { fromError } from "zod-validation-error";
 import { logger } from "../utils/logger";
 
-export type ValidatedRequest<Body> = Request<any, any, Body>;
+// export type ValidatedRequest<Body> = Request<any, any, Body>;
+
+export interface ValidatedRequest<Body> extends Request<any, any, Body> {
+  validatedBody: Body;
+}
 
 export const validateBody =
   <T extends ZodObject>(schema: T) =>
