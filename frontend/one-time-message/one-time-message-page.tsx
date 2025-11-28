@@ -4,6 +4,7 @@ import {
   Fieldset,
   FileInput,
   Stack,
+  Switch,
   Textarea,
   TextInput,
 } from "@mantine/core";
@@ -15,13 +16,14 @@ import { notifications } from "@mantine/notifications";
 
 const formSchema = z.object({
   title: z.string().optional(),
-  content: z.string().min(3, { error: "Message is required" }),
+  content: z.string().optional(),
 });
 
 export default function OneTimeMessagePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [includeLogo, setIncludeLogo] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [{ data, loading, error }, submit] = useAxios(
     {
@@ -31,6 +33,7 @@ export default function OneTimeMessagePage() {
         title,
         content,
         image,
+        includeLogo,
       },
       headers: {
         "Content-Type": "multipart/form-data",
@@ -44,6 +47,7 @@ export default function OneTimeMessagePage() {
     setContent("");
     setImage(null);
     setFormSubmitted(false);
+    setIncludeLogo(true);
   };
 
   useEffect(() => {
@@ -102,6 +106,7 @@ export default function OneTimeMessagePage() {
 
           <Textarea
             label="Message"
+            description="A message is optional and can be left blank"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             error={formSubmitted && getError("content")}
@@ -111,9 +116,19 @@ export default function OneTimeMessagePage() {
             label="Image"
             description="An image to be printed with your message. This is optional."
             value={image}
-            onChange={setImage}
+            onChange={(file) => {
+              setIncludeLogo(!file);
+              setImage(file);
+            }}
             accept="image/png,image/jpeg"
             clearable
+          />
+
+          <Switch
+            checked={includeLogo}
+            onChange={(e) => setIncludeLogo(e.target.checked)}
+            label="Print Reminders App Logo"
+            size="md"
           />
 
           <Button
@@ -124,6 +139,7 @@ export default function OneTimeMessagePage() {
               }
             }}
             loading={loading}
+            disabled={!title && !content && !image}
             mt="md"
             w="fit-content"
           >

@@ -66,8 +66,10 @@ export async function printMessage(message: Message & { image: Image | null }) {
     printer.newLine();
   }
 
-  printLongContent(printer, message.content);
-  printer.newLine();
+  if (message.content) {
+    printLongContent(printer, message.content);
+    printer.newLine();
+  }
 
   if (message.image) {
     const file = `${uploadFolder}/compressed/${message.image.id}.png`;

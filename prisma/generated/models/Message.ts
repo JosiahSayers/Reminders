@@ -189,7 +189,7 @@ export type MessageGroupByOutputType = {
   id: number
   successful: boolean
   title: string | null
-  content: string
+  content: string | null
   includeLogo: boolean
   createdAt: Date
   _count: MessageCountAggregateOutputType | null
@@ -221,7 +221,7 @@ export type MessageWhereInput = {
   id?: Prisma.IntFilter<"Message"> | number
   successful?: Prisma.BoolFilter<"Message"> | boolean
   title?: Prisma.StringNullableFilter<"Message"> | string | null
-  content?: Prisma.StringFilter<"Message"> | string
+  content?: Prisma.StringNullableFilter<"Message"> | string | null
   includeLogo?: Prisma.BoolFilter<"Message"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
   image?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
@@ -231,7 +231,7 @@ export type MessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   successful?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content?: Prisma.SortOrderInput | Prisma.SortOrder
   includeLogo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   image?: Prisma.ImageOrderByWithRelationInput
@@ -244,7 +244,7 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   successful?: Prisma.BoolFilter<"Message"> | boolean
   title?: Prisma.StringNullableFilter<"Message"> | string | null
-  content?: Prisma.StringFilter<"Message"> | string
+  content?: Prisma.StringNullableFilter<"Message"> | string | null
   includeLogo?: Prisma.BoolFilter<"Message"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
   image?: Prisma.XOR<Prisma.ImageNullableScalarRelationFilter, Prisma.ImageWhereInput> | null
@@ -254,7 +254,7 @@ export type MessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   successful?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content?: Prisma.SortOrderInput | Prisma.SortOrder
   includeLogo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.MessageCountOrderByAggregateInput
@@ -271,7 +271,7 @@ export type MessageScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Message"> | number
   successful?: Prisma.BoolWithAggregatesFilter<"Message"> | boolean
   title?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
-  content?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  content?: Prisma.StringNullableWithAggregatesFilter<"Message"> | string | null
   includeLogo?: Prisma.BoolWithAggregatesFilter<"Message"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Message"> | Date | string
 }
@@ -279,7 +279,7 @@ export type MessageScalarWhereWithAggregatesInput = {
 export type MessageCreateInput = {
   successful: boolean
   title?: string | null
-  content: string
+  content?: string | null
   includeLogo?: boolean
   createdAt?: Date | string
   image?: Prisma.ImageCreateNestedOneWithoutMessageInput
@@ -289,7 +289,7 @@ export type MessageUncheckedCreateInput = {
   id?: number
   successful: boolean
   title?: string | null
-  content: string
+  content?: string | null
   includeLogo?: boolean
   createdAt?: Date | string
   image?: Prisma.ImageUncheckedCreateNestedOneWithoutMessageInput
@@ -298,7 +298,7 @@ export type MessageUncheckedCreateInput = {
 export type MessageUpdateInput = {
   successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.ImageUpdateOneWithoutMessageNestedInput
@@ -308,7 +308,7 @@ export type MessageUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   image?: Prisma.ImageUncheckedUpdateOneWithoutMessageNestedInput
@@ -318,7 +318,7 @@ export type MessageCreateManyInput = {
   id?: number
   successful: boolean
   title?: string | null
-  content: string
+  content?: string | null
   includeLogo?: boolean
   createdAt?: Date | string
 }
@@ -326,7 +326,7 @@ export type MessageCreateManyInput = {
 export type MessageUpdateManyMutationInput = {
   successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -335,7 +335,7 @@ export type MessageUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -401,7 +401,7 @@ export type MessageUpdateOneRequiredWithoutImageNestedInput = {
 export type MessageCreateWithoutImageInput = {
   successful: boolean
   title?: string | null
-  content: string
+  content?: string | null
   includeLogo?: boolean
   createdAt?: Date | string
 }
@@ -410,7 +410,7 @@ export type MessageUncheckedCreateWithoutImageInput = {
   id?: number
   successful: boolean
   title?: string | null
-  content: string
+  content?: string | null
   includeLogo?: boolean
   createdAt?: Date | string
 }
@@ -434,7 +434,7 @@ export type MessageUpdateToOneWithWhereWithoutImageInput = {
 export type MessageUpdateWithoutImageInput = {
   successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -443,7 +443,7 @@ export type MessageUncheckedUpdateWithoutImageInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   successful?: Prisma.BoolFieldUpdateOperationsInput | boolean
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   includeLogo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -503,7 +503,7 @@ export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: number
     successful: boolean
     title: string | null
-    content: string
+    content: string | null
     includeLogo: boolean
     createdAt: Date
   }, ExtArgs["result"]["message"]>

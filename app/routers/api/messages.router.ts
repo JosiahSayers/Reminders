@@ -15,7 +15,8 @@ const upload = multer();
 
 const messageSchema = z.strictObject({
   title: z.string().optional(),
-  content: z.string(),
+  content: z.string().optional(),
+  includeLogo: z.boolean().optional(),
 });
 
 messagesRouter.post(
@@ -29,7 +30,7 @@ messagesRouter.post(
           title: req.body.title,
           content: req.body.content,
           successful: false,
-          includeLogo: false,
+          includeLogo: req.body.includeLogo ?? true,
         },
       });
 

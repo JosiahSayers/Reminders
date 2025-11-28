@@ -43,7 +43,7 @@ model Message {
   successful Boolean
 
   title String?
-  content String
+  content String?
   includeLogo Boolean @default(true)
 
   createdAt DateTime @default(now())
