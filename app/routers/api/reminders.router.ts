@@ -11,6 +11,7 @@ import { logger } from "../../utils/logger";
 import { createJob, resetJob, stopJob } from "../../utils/jobs";
 import { requireReminderExists } from "../../middleware/require-reminder-exists";
 import cronstrue from "cronstrue";
+import { executeReminder } from "../../execute-reminder";
 
 export const remindersRouter = express.Router();
 
@@ -96,5 +97,17 @@ remindersRouter.patch(
     });
     resetJob(updatedReminder);
     return res.json(updatedReminder);
+  }
+);
+
+remindersRouter.post(
+  "/:id/resend",
+  requireReminderExists,
+  async (req, res, next) => {
+    const reminder = await prisma.reminder.findUnique({
+      where: { id: Number(req.params.id) },
+    });
+    await executeReminder(reminder!);
+    return res.sendStatus(200);
   }
 );

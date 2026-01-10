@@ -16,6 +16,8 @@ export default function Navbar() {
 
       <NavbarLink href="/new-reminder" title="New Reminder" />
 
+      <NavbarLink href="/history" title="History" />
+
       <Divider />
 
       <NavbarLink href="/new-message" title="One Time Message" />

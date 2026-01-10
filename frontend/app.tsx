@@ -9,6 +9,7 @@ import { AppContextWrapper } from "./app-context";
 import { useEffect } from "react";
 import OneTimeMessagePage from "./one-time-message/one-time-message-page";
 import { Notifications } from "@mantine/notifications";
+import HistoryPage from "./history/history-page";
 
 export default function App() {
   const [opened, { toggle, close }] = useDisclosure();
@@ -60,6 +61,8 @@ export default function App() {
                 <Route path="/new-reminder" component={NewReminderPage} />
 
                 <Route path="/new-message" component={OneTimeMessagePage} />
+
+                <Route path="/history" component={HistoryPage} />
 
                 {/* Default route in a switch */}
                 <Route>404: No such page!</Route>

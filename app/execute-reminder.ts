@@ -7,8 +7,7 @@ export async function executeReminder(reminder: Reminder) {
   let successful = true;
 
   try {
-    // todo: replace with actual implementation
-    logger.verbose("Sending reminder", { reminder });
+    logger.info("Sending reminder", { reminder });
     await printReminder(reminder);
   } catch (e) {
     successful = false;
