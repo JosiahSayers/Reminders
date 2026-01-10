@@ -6,6 +6,7 @@
       "dependencies": {
         "@mantine/core": "^8.3.7",
         "@mantine/hooks": "^8.3.7",
+        "@mantine/modals": "^8.3.12",
         "@mantine/notifications": "^8.3.8",
         "@prisma/adapter-libsql": "^6.19.0",
         "@prisma/client": "^6.19.0",
@@ -144,6 +145,8 @@
     "@mantine/core": ["@mantine/core@8.3.7", "", { "dependencies": { "@floating-ui/react": "^0.27.16", "clsx": "^2.1.1", "react-number-format": "^5.4.4", "react-remove-scroll": "^2.7.1", "react-textarea-autosize": "8.5.9", "type-fest": "^4.41.0" }, "peerDependencies": { "@mantine/hooks": "8.3.7", "react": "^18.x || ^19.x", "react-dom": "^18.x || ^19.x" } }, "sha512-7gUTiUrD0pukpkSNvScGi/e+pBuBWYJP5yFHT4TFf1fmaQAA7PbNoAzUeEkPbVromDtK0VdEcpRlYpDnJhpz2g=="],
 
     "@mantine/hooks": ["@mantine/hooks@8.3.7", "", { "peerDependencies": { "react": "^18.x || ^19.x" } }, "sha512-2xnKS8C6fTzMoq1dtOJGrh2bIBuWnVrijL/DsDk60UaUgbABh8zScwU5ndX+p02ds2bebo34LovscP9fH38uPg=="],
+
+    "@mantine/modals": ["@mantine/modals@8.3.12", "", { "peerDependencies": { "@mantine/core": "8.3.12", "@mantine/hooks": "8.3.12", "react": "^18.x || ^19.x", "react-dom": "^18.x || ^19.x" } }, "sha512-+uRyGe2lLy601qlMk+8aR9d/Aibu+dZi6Jcmvm5z8Gw4ocviyMMlnd8BLSQ/Jvib2OX8fWj+yUQN7FMQ4Rbwjw=="],
 
     "@mantine/notifications": ["@mantine/notifications@8.3.8", "", { "dependencies": { "@mantine/store": "8.3.8", "react-transition-group": "4.4.5" }, "peerDependencies": { "@mantine/core": "8.3.8", "@mantine/hooks": "8.3.8", "react": "^18.x || ^19.x", "react-dom": "^18.x || ^19.x" } }, "sha512-AS3UGnHO8UGzLpxe4cUIVpwpCoGKplWhMGm6E2hJoHnO4Wg0h3HlsR7drFEnDOZhaOMyD6MD9tAeWZ2/7rnvrw=="],
 

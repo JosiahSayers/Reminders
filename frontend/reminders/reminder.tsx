@@ -2,22 +2,43 @@ import { Text, Stack, Card, Group, Menu, ActionIcon } from "@mantine/core";
 import { IconDots, IconFileZip, IconEye, IconTrash } from "@tabler/icons-react";
 import type { Reminder } from "../../prisma/generated/browser";
 import useAxios from "axios-hooks";
+import { modals } from "@mantine/modals";
+import EditReminderModal from "../modals/edit-reminder-modal";
 
 interface Props {
   reminder: Reminder;
-  onDelete: () => void;
+  refetchList: () => void;
 }
 
-export default function Reminder({ reminder, onDelete }: Props) {
+export default function Reminder({ reminder, refetchList }: Props) {
   const [{ response, loading, error }, sendDeleteRequest] = useAxios(
     { url: `/api/reminders/${reminder.id}`, method: "DELETE" },
     { manual: true }
   );
 
   if (response && !error && !loading) {
-    setTimeout(() => onDelete(), 0);
+    setTimeout(() => refetchList(), 0);
     return null;
   }
+
+  const openEditModal = () => {
+    const modalId = modals.open({
+      title: "Edit Reminder",
+    });
+
+    modals.updateModal({
+      modalId,
+      children: (
+        <EditReminderModal
+          reminder={reminder}
+          onSuccess={() => {
+            modals.close(modalId);
+            refetchList();
+          }}
+        />
+      ),
+    });
+  };
 
   return (
     <Card
@@ -45,6 +66,7 @@ export default function Reminder({ reminder, onDelete }: Props) {
             </Menu.Target>
 
             <Menu.Dropdown onChange={(e) => console.log(e)}>
+              <Menu.Item onClick={openEditModal}>Edit</Menu.Item>
               <Menu.Item
                 leftSection={<IconTrash size={14} />}
                 color="red"

@@ -25,6 +25,7 @@
   "dependencies": {
     "@mantine/core": "^8.3.7",
     "@mantine/hooks": "^8.3.7",
+    "@mantine/modals": "^8.3.12",
     "@mantine/notifications": "^8.3.8",
     "@prisma/adapter-libsql": "^6.19.0",
     "@prisma/client": "^6.19.0",

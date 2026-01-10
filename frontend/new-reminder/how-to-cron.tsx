@@ -26,7 +26,7 @@ export default function HowToCron() {
   return (
     <Box>
       <Group mb={5}>
-        <Button onClick={toggle}>
+        <Button onClick={toggle} variant="light">
           {opened ? "Hide" : "Show"} Cron Explanation
         </Button>
       </Group>

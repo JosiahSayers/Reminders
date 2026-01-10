@@ -21,7 +21,7 @@ export default function Reminders() {
         {reminders.map((reminder) => (
           <ReminderComponent
             reminder={reminder}
-            onDelete={() => {
+            refetchList={() => {
               refetch();
               fetchCounts();
             }}
