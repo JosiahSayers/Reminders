@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import NavbarLink from "./navbar-link";
 import { AppContext } from "../app-context";
-import { Divider } from "@mantine/core";
+import { Divider, Stack } from "@mantine/core";
 
 export default function Navbar() {
   const { activeReminderCount } = useContext(AppContext);
@@ -20,7 +20,11 @@ export default function Navbar() {
 
       <Divider />
 
-      <NavbarLink href="/new-message" title="One Time Message" />
+      <Stack justify="space-between" h="100%">
+        <NavbarLink href="/new-message" title="One Time Message" />
+
+        <NavbarLink href="/stats" title="Statistics" />
+      </Stack>
     </>
   );
 }

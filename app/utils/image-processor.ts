@@ -1,3 +1,4 @@
+import { $ } from "bun";
 import mime from "mime-types";
 import sharp from "sharp";
 import { prisma } from "../../prisma/db";
@@ -46,4 +47,15 @@ async function writeBufferToDisk(
 
 async function compressImage(buffer: Buffer) {
   return sharp(buffer).resize(320).png().toBuffer();
+}
+
+export async function getStorageStatistics() {
+  const directorySize = async (directory: string) =>
+    Number(
+      (await $`du -s ${directory} | awk '{print$1}'`.quiet().text()).trim()
+    );
+  const originalsSize = await directorySize(`${uploadFolder}/originals`);
+  const compressedSize = await directorySize(`${uploadFolder}/compressed`);
+  const totalUploadsSize = await directorySize(uploadFolder);
+  return { originalsSize, compressedSize, totalUploadsSize };
 }
