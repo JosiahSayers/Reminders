@@ -42,3 +42,8 @@ export async function generateCron(description: string) {
   );
   throw new Error("Unable to generate cron string from the given description");
 }
+
+export function isAiEnabled(): boolean {
+  const apiKey = Bun.env.AI_GATEWAY_API_KEY;
+  return !!apiKey;
+}

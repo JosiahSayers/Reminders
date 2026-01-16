@@ -1,11 +1,20 @@
 import express from "express";
 import cronstrue from "cronstrue";
 import { requireQuery } from "../../middleware/require-query";
-import { generateCron } from "../../utils/llm";
+import { generateCron, isAiEnabled } from "../../utils/llm";
 
 export const cronRouter = express.Router();
 
 cronRouter.get("/", requireQuery("description"), async (req, res) => {
+  if (!isAiEnabled()) {
+    return res
+      .json({
+        error:
+          'AI usage is not enabled. Provide a valid vercel API key in the "AI_GATEWAY_API_KEY" environment variable.',
+      })
+      .status(403);
+  }
+
   const description = req.query.description!.toString();
   try {
     const cron = await generateCron(description);
