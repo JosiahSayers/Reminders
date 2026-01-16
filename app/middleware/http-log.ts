@@ -22,6 +22,7 @@ export const httpLog = (req: Request, res: Response, next: NextFunction) => {
       status: res.status,
       duration: Date.now() - start,
       body: isMutation ? req.body : undefined,
+      query: req.query,
     });
   });
 

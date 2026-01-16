@@ -8,6 +8,8 @@ reminderHistoryRouter.get("/", async (req, res, next) => {
   if (req.query.success) {
     successFilter = req.query.success === "true" ? true : false;
   }
+  const page = Number(req.query.page) || 1;
+  const pageSize = 25;
 
   const history = await prisma.reminderHistory.findMany({
     where: {
@@ -17,6 +19,13 @@ reminderHistoryRouter.get("/", async (req, res, next) => {
       createdAt: "desc",
     },
     include: { reminder: true },
+    take: pageSize,
+    skip: pageSize * page,
   });
-  return res.json(history);
+
+  const totalHistorySize = await prisma.reminderHistory.count({
+    where: { successful: successFilter },
+  });
+  const totalPages = Math.max(Math.floor(totalHistorySize / pageSize), 1);
+  return res.json({ history, totalPages, totalHistorySize, currentPage: page });
 });

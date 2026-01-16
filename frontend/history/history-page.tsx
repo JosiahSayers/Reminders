@@ -1,17 +1,30 @@
-import { Center, Loader, Stack, Switch, Table, Text } from "@mantine/core";
+import {
+  Center,
+  Loader,
+  Pagination,
+  Stack,
+  Switch,
+  Table,
+  Text,
+} from "@mantine/core";
 import useAxios from "axios-hooks";
 import type { Reminder, ReminderHistory } from "../../prisma/generated/browser";
 import ResendReminderButton from "./resend-button";
 import { useState } from "react";
 
+type ApiData = {
+  history: Array<ReminderHistory & { reminder: Reminder }>;
+  totalPages: number;
+  totalHistorySize: number;
+};
+
 export default function HistoryPage() {
   const [onlyFailure, setOnlyFailure] = useState<boolean>();
-  const [{ data, loading }, refetch] = useAxios<
-    Array<ReminderHistory & { reminder: Reminder }>
-  >(
+  const [page, setPage] = useState(1);
+  const [{ data, loading }, refetch] = useAxios<ApiData>(
     {
       url: "/api/reminder-history",
-      params: { success: onlyFailure ? "false" : undefined },
+      params: { success: onlyFailure ? "false" : undefined, page },
     },
     { useCache: false }
   );
@@ -39,7 +52,7 @@ export default function HistoryPage() {
         </Table.Thead>
 
         <Table.Tbody>
-          {data!.map((item) => (
+          {data!.history.map((item) => (
             <Table.Tr key={item.id}>
               <Table.Td width="fit-content">{item.reminder.title}</Table.Td>
               <Table.Td>
@@ -61,6 +74,8 @@ export default function HistoryPage() {
           ))}
         </Table.Tbody>
       </Table>
+
+      <Pagination total={data!.totalPages} value={page} onChange={setPage} />
     </Stack>
   );
 }
