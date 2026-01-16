@@ -29,16 +29,18 @@ export default function HistoryPage() {
       />
       <Table stickyHeader stickyHeaderOffset={60} highlightOnHover>
         <Table.Thead>
-          <Table.Th>Title</Table.Th>
-          <Table.Th>Sent</Table.Th>
-          <Table.Th>Content</Table.Th>
-          <Table.Th>Successful</Table.Th>
-          <Table.Th>Actions</Table.Th>
+          <Table.Tr>
+            <Table.Th>Title</Table.Th>
+            <Table.Th>Sent</Table.Th>
+            <Table.Th>Content</Table.Th>
+            <Table.Th>Successful</Table.Th>
+            <Table.Th>Actions</Table.Th>
+          </Table.Tr>
         </Table.Thead>
 
         <Table.Tbody>
           {data!.map((item) => (
-            <Table.Tr>
+            <Table.Tr key={item.id}>
               <Table.Td width="fit-content">{item.reminder.title}</Table.Td>
               <Table.Td>
                 {new Date(item.createdAt).toLocaleDateString()}{" "}
