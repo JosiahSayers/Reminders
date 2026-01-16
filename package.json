@@ -2,12 +2,11 @@
   "name": "reminders",
   "module": "index.ts",
   "type": "module",
-  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development bun run --watch app/index.ts",
     "migrate:dev": "bunx --bun prisma migrate dev",
-    "publish": "docker buildx build --push --platform linux/amd64 -t josiahsayers15/reminders:latest -t josiahsayers15/reminders:$npm_package_version .",
+    "publish": "docker buildx build --push --platform linux/amd64 -t josiahsayers15/reminders:latest -t josiahsayers15/reminders:$(cat version) .",
     "start": "bunx --bun prisma migrate deploy && bun run /usr/src/app/app/index.ts"
   },
   "devDependencies": {
