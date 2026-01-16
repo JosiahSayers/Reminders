@@ -1,11 +1,12 @@
 import { Box, Button, Group, Stepper } from "@mantine/core";
-import { useContext, type PropsWithChildren } from "react";
+import { useContext, useEffect, type PropsWithChildren } from "react";
 import { NewReminderContext } from "./new-reminder-context";
 import { useLocation } from "wouter";
 import FirstStep from "./steps/first-step";
 import SecondStep from "./steps/second-step";
 import ThirdStep from "./steps/third-step";
 import CompletedStep from "./steps/completed-step";
+import { AppContext } from "../app-context";
 
 const StepWrapper = ({ children }: PropsWithChildren) => {
   return (
@@ -24,6 +25,13 @@ export default function Steps() {
   const { step, setStep, previousStep, nextStep, completed, lastStep } =
     useContext(NewReminderContext);
   const [location, navigate] = useLocation();
+  const { aiEnabled } = useContext(AppContext);
+
+  useEffect(() => {
+    if (!aiEnabled) {
+      setStep(2);
+    }
+  }, [aiEnabled]);
 
   const getStepText = () => {
     if (completed) {

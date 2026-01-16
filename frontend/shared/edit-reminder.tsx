@@ -55,7 +55,7 @@ export default function EditReminder({ form, onChange, displayErrors }: Props) {
         disabled
         mb="md"
         description="Return to the first step to change this value"
-        error={getError("cron")}
+        error={displayErrors && getError("cron")}
       />
       <TextInput
         label="Cron"
@@ -76,7 +76,7 @@ export default function EditReminder({ form, onChange, displayErrors }: Props) {
           });
         }}
         description="Return to the first step to change this value"
-        error={getError("cron")}
+        error={displayErrors && getError("cron")}
         mb="xl"
       />
 
