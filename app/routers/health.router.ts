@@ -10,7 +10,7 @@ healthRouter.get("/livez", (req, res) => {
 
 healthRouter.get("/readyz", async (req, res) => {
   const dbConnected = !!(await prisma.$queryRaw`SELECT 1`);
-  const aiEnabled = isAiEnabled();
+  const aiEnabled = await isAiEnabled();
   const success = dbConnected; // chain any future services to this boolean
   return res
     .json({

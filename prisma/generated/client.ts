@@ -61,3 +61,8 @@ export type Message = Prisma.MessageModel
  * 
  */
 export type Image = Prisma.ImageModel
+/**
+ * Model Setting
+ * 
+ */
+export type Setting = Prisma.SettingModel

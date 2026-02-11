@@ -65,3 +65,13 @@ model Image {
   message Message @relation(fields: [messageId], references: [id])
   messageId Int @unique
 }
+
+model Setting {
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  enabled Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

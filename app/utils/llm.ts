@@ -2,6 +2,7 @@ import { generateText } from "ai";
 import cronstrue from "cronstrue";
 import { validateCronExpression } from "cron";
 import { logger } from "./logger";
+import { prisma } from "../../prisma/db";
 
 export async function generateCron(description: string) {
   let outputIsValid = false;
@@ -38,12 +39,15 @@ export async function generateCron(description: string) {
 
   logger.error(
     "Gave up trying to generate a valid cron expression after 5 tries",
-    { description }
+    { description },
   );
   throw new Error("Unable to generate cron string from the given description");
 }
 
-export function isAiEnabled(): boolean {
+export async function isAiEnabled(): Promise<boolean> {
+  const setting = await prisma.setting.findUnique({
+    where: { name: "AI Enabled" },
+  });
   const apiKey = Bun.env.AI_GATEWAY_API_KEY;
-  return !!apiKey;
+  return !!setting?.enabled && !!apiKey;
 }

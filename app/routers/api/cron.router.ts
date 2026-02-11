@@ -6,11 +6,12 @@ import { generateCron, isAiEnabled } from "../../utils/llm";
 export const cronRouter = express.Router();
 
 cronRouter.get("/", requireQuery("description"), async (req, res) => {
-  if (!isAiEnabled()) {
+  const aiEnabled = await isAiEnabled();
+  if (!aiEnabled) {
     return res
       .json({
         error:
-          'AI usage is not enabled. Provide a valid vercel API key in the "AI_GATEWAY_API_KEY" environment variable.',
+          'AI usage is not enabled. Provide a valid vercel API key in the "AI_GATEWAY_API_KEY" environment variable and turn on the "AI Enabled" setting on the admin settings page.',
       })
       .status(403);
   }

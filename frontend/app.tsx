@@ -11,6 +11,7 @@ import OneTimeMessagePage from "./one-time-message/one-time-message-page";
 import { Notifications } from "@mantine/notifications";
 import HistoryPage from "./history/history-page";
 import StatsPage from "./stats/stats-page";
+import AdminSettingsPage from "./admin/settings-page";
 
 export default function App() {
   const [opened, { toggle, close }] = useDisclosure();
@@ -65,7 +66,9 @@ export default function App() {
 
                 <Route path="/history" component={HistoryPage} />
 
-                <Route path="/stats" component={StatsPage} />
+                <Route path="/admin/stats" component={StatsPage} />
+
+                <Route path="/admin/settings" component={AdminSettingsPage} />
 
                 {/* Default route in a switch */}
                 <Route>404: No such page!</Route>

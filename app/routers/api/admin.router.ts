@@ -1,6 +1,17 @@
 import express from "express";
 import { getStorageStatistics } from "../../utils/image-processor";
 import { prisma } from "../../../prisma/db";
+import z from "zod";
+import {
+  validateBody,
+  type ValidatedRequest,
+} from "../../middleware/validate-body";
+
+const settingSchema = z.strictObject({
+  name: z.string(),
+  enabled: z.boolean(),
+});
+type SettingSchema = z.infer<typeof settingSchema>;
 
 export const adminRouter = express.Router();
 
@@ -23,3 +34,32 @@ adminRouter.get("/stats", async (req, res) => {
     oneTimeMessages,
   });
 });
+
+adminRouter.get("/settings", async (req, res) => {
+  const settings = await prisma.setting.findMany();
+
+  return res.json({ settings });
+});
+
+adminRouter.put(
+  "/settings",
+  validateBody(settingSchema),
+  async (req: ValidatedRequest<SettingSchema>, res) => {
+    // find setting to update
+    let setting = await prisma.setting.findUnique({
+      where: { name: req.body.name },
+    });
+    if (!setting) {
+      return res.json({ error: `Setting not found` }).status(404);
+    }
+
+    // update it
+    const updatedSetting = await prisma.setting.update({
+      where: { id: setting.id },
+      data: { enabled: req.body.enabled },
+    });
+
+    // return it
+    return res.json(updatedSetting);
+  },
+);

@@ -1,0 +1,1 @@
+INSERT INTO Setting (name, enabled, createdAt, updatedAt) VALUES ('AI Enabled', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
