@@ -20,7 +20,7 @@ reminderHistoryRouter.get("/", async (req, res, next) => {
     },
     include: { reminder: true },
     take: pageSize,
-    skip: pageSize * page,
+    skip: pageSize * (page - 1),
   });
 
   const totalHistorySize = await prisma.reminderHistory.count({

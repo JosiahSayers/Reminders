@@ -15,4 +15,5 @@ helm-charts
 coverage*
 logs
 prisma/dev.db
+*.db
 uploads
