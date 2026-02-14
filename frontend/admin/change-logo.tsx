@@ -51,7 +51,7 @@ export default function ChangeLogo() {
       <Group align="end">
         <FileInput
           label="New Logo"
-          description="Choose an image to upload and set as your logo. This will be printed on reminders."
+          description='Choose an image to upload and set as your logo. This will be printed on reminders when the "Print Logo" setting is enabled.'
           accept="image/png,image/jpeg"
           clearable
           name="logo"

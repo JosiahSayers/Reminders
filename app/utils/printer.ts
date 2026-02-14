@@ -6,6 +6,7 @@ import {
 import { logger } from "./logger";
 import type { Image, Message, Reminder } from "../../prisma/generated/client";
 import { uploadFolder } from "./image-processor";
+import { prisma } from "../../prisma/db";
 
 export async function getPrinter() {
   const printer = new ThermalPrinter({
@@ -40,7 +41,6 @@ export async function printReminder(reminder: Reminder) {
   printLongContent(printer, reminder.content);
   printer.newLine();
 
-  printer.drawLine();
   await printLogo(printer);
 
   printer.cut();
@@ -76,7 +76,6 @@ export async function printMessage(message: Message & { image: Image | null }) {
   }
 
   if (message.includeLogo) {
-    printer.drawLine();
     await printLogo(printer);
   }
 
@@ -116,6 +115,13 @@ function printLongContent(printer: ThermalPrinter, content: string) {
 }
 
 async function printLogo(printer: ThermalPrinter) {
-  printer.alignCenter();
-  await printer.printImage("./app/assets/logo.png");
+  const printLogoSetting = await prisma.setting.findUnique({
+    where: { name: "Print Logo" },
+  });
+
+  if (printLogoSetting?.enabled) {
+    printer.drawLine();
+    printer.alignCenter();
+    await printer.printImage("./app/assets/logo.png");
+  }
 }
