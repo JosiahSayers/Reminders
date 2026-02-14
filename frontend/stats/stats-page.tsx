@@ -27,7 +27,7 @@ export default function StatsPage() {
 
             <StatsListItem title="Deleted" data={data.deletedReminders} />
 
-            <StatsListItem title="Total Sent" data={data.remindersSent} />
+            <StatsListItem title="Total Printed" data={data.remindersSent} />
           </List>
         </List.Item>
 
