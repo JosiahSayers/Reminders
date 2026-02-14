@@ -37,6 +37,7 @@ export type SettingSumAggregateOutputType = {
 export type SettingMinAggregateOutputType = {
   id: number | null
   name: string | null
+  description: string | null
   enabled: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -45,6 +46,7 @@ export type SettingMinAggregateOutputType = {
 export type SettingMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  description: string | null
   enabled: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,6 +55,7 @@ export type SettingMaxAggregateOutputType = {
 export type SettingCountAggregateOutputType = {
   id: number
   name: number
+  description: number
   enabled: number
   createdAt: number
   updatedAt: number
@@ -71,6 +74,7 @@ export type SettingSumAggregateInputType = {
 export type SettingMinAggregateInputType = {
   id?: true
   name?: true
+  description?: true
   enabled?: true
   createdAt?: true
   updatedAt?: true
@@ -79,6 +83,7 @@ export type SettingMinAggregateInputType = {
 export type SettingMaxAggregateInputType = {
   id?: true
   name?: true
+  description?: true
   enabled?: true
   createdAt?: true
   updatedAt?: true
@@ -87,6 +92,7 @@ export type SettingMaxAggregateInputType = {
 export type SettingCountAggregateInputType = {
   id?: true
   name?: true
+  description?: true
   enabled?: true
   createdAt?: true
   updatedAt?: true
@@ -182,6 +188,7 @@ export type SettingGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type SettingGroupByOutputType = {
   id: number
   name: string
+  description: string | null
   enabled: boolean
   createdAt: Date
   updatedAt: Date
@@ -213,6 +220,7 @@ export type SettingWhereInput = {
   NOT?: Prisma.SettingWhereInput | Prisma.SettingWhereInput[]
   id?: Prisma.IntFilter<"Setting"> | number
   name?: Prisma.StringFilter<"Setting"> | string
+  description?: Prisma.StringNullableFilter<"Setting"> | string | null
   enabled?: Prisma.BoolFilter<"Setting"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
@@ -221,6 +229,7 @@ export type SettingWhereInput = {
 export type SettingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   enabled?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -232,6 +241,7 @@ export type SettingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SettingWhereInput | Prisma.SettingWhereInput[]
   OR?: Prisma.SettingWhereInput[]
   NOT?: Prisma.SettingWhereInput | Prisma.SettingWhereInput[]
+  description?: Prisma.StringNullableFilter<"Setting"> | string | null
   enabled?: Prisma.BoolFilter<"Setting"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Setting"> | Date | string
@@ -240,6 +250,7 @@ export type SettingWhereUniqueInput = Prisma.AtLeast<{
 export type SettingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   enabled?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -256,6 +267,7 @@ export type SettingScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SettingScalarWhereWithAggregatesInput | Prisma.SettingScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Setting"> | number
   name?: Prisma.StringWithAggregatesFilter<"Setting"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Setting"> | string | null
   enabled?: Prisma.BoolWithAggregatesFilter<"Setting"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Setting"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Setting"> | Date | string
@@ -263,6 +275,7 @@ export type SettingScalarWhereWithAggregatesInput = {
 
 export type SettingCreateInput = {
   name: string
+  description?: string | null
   enabled: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -271,6 +284,7 @@ export type SettingCreateInput = {
 export type SettingUncheckedCreateInput = {
   id?: number
   name: string
+  description?: string | null
   enabled: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -278,6 +292,7 @@ export type SettingUncheckedCreateInput = {
 
 export type SettingUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -286,6 +301,7 @@ export type SettingUpdateInput = {
 export type SettingUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -294,6 +310,7 @@ export type SettingUncheckedUpdateInput = {
 export type SettingCreateManyInput = {
   id?: number
   name: string
+  description?: string | null
   enabled: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -301,6 +318,7 @@ export type SettingCreateManyInput = {
 
 export type SettingUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -309,6 +327,7 @@ export type SettingUpdateManyMutationInput = {
 export type SettingUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -317,6 +336,7 @@ export type SettingUncheckedUpdateManyInput = {
 export type SettingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -329,6 +349,7 @@ export type SettingAvgOrderByAggregateInput = {
 export type SettingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -337,6 +358,7 @@ export type SettingMaxOrderByAggregateInput = {
 export type SettingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -351,6 +373,7 @@ export type SettingSumOrderByAggregateInput = {
 export type SettingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
   enabled?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -359,6 +382,7 @@ export type SettingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type SettingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
   enabled?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -367,6 +391,7 @@ export type SettingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type SettingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
   enabled?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -375,12 +400,13 @@ export type SettingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type SettingSelectScalar = {
   id?: boolean
   name?: boolean
+  description?: boolean
   enabled?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SettingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "enabled" | "createdAt" | "updatedAt", ExtArgs["result"]["setting"]>
+export type SettingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "enabled" | "createdAt" | "updatedAt", ExtArgs["result"]["setting"]>
 
 export type $SettingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Setting"
@@ -388,6 +414,7 @@ export type $SettingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    description: string | null
     enabled: boolean
     createdAt: Date
     updatedAt: Date
@@ -816,6 +843,7 @@ export interface Prisma__SettingClient<T, Null = never, ExtArgs extends runtime.
 export interface SettingFieldRefs {
   readonly id: Prisma.FieldRef<"Setting", 'Int'>
   readonly name: Prisma.FieldRef<"Setting", 'String'>
+  readonly description: Prisma.FieldRef<"Setting", 'String'>
   readonly enabled: Prisma.FieldRef<"Setting", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Setting", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Setting", 'DateTime'>

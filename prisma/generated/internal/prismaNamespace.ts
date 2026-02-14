@@ -873,6 +873,7 @@ export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof Im
 export const SettingScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   enabled: 'enabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

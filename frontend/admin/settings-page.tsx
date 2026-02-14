@@ -47,10 +47,10 @@ export default function AdminSettingsPage() {
   };
 
   return (
-    <Stack>
+    <Stack gap="xl">
       <Title order={1}>Settings</Title>
       {!settingsLoading && currentSettings ? (
-        <Stack>
+        <Stack mb="xl">
           {currentSettings.settings.map((setting) => (
             <Switch
               key={setting.name}
@@ -62,6 +62,7 @@ export default function AdminSettingsPage() {
                 handleSettingChange(setting, e.currentTarget.checked)
               }
               disabled={settingsLoading || updateLoading}
+              description={setting.description}
             />
           ))}
         </Stack>

@@ -2,6 +2,7 @@ import express from "express";
 import {
   compressImage,
   getStorageStatistics,
+  uploadFolder,
 } from "../../utils/image-processor";
 import { prisma } from "../../../prisma/db";
 import z from "zod";
@@ -80,9 +81,11 @@ adminRouter.post("/logo", upload.single("logo"), async (req, res) => {
 
   // Move current logo to a safe location (if there is a current logo)
   const currentLogo = Bun.file("./app/assets/logo.png");
+  let previousLogoFilename: string | null = null;
   if (await currentLogo.exists()) {
+    previousLogoFilename = `${new Date().toISOString()}.png`;
     await Bun.write(
-      `./app/assets/previous-logo-${new Date().toISOString()}.png`,
+      `${uploadFolder}/previous-logos/${previousLogoFilename}`,
       currentLogo,
     );
   }
@@ -90,5 +93,5 @@ adminRouter.post("/logo", upload.single("logo"), async (req, res) => {
   // Write the new logo to disk
   await Bun.write("./app/assets/logo.png", compressed);
 
-  return res.sendStatus(201);
+  return res.json({ previousLogoFilename });
 });

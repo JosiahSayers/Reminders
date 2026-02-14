@@ -36,10 +36,15 @@ export default function ChangeLogo() {
       });
     } else if (data) {
       setLogo(null);
+      let message = "Reminders will now print with the new logo";
+      if (data.previousLogoFilename) {
+        message += `. Your previous logo has been copied to [your uploads folder]/previous-logos/${data.previousLogoFilename}.`;
+      }
+
       notifications.show({
         autoClose: 5000,
         title: "Logo updated!",
-        message: "Reminders will now print with the new logo",
+        message,
         color: "green",
         icon: <IconReceipt />,
       });
@@ -50,7 +55,7 @@ export default function ChangeLogo() {
     <form method="post" action="/api/admin/logo">
       <Group align="end">
         <FileInput
-          label="New Logo"
+          label="Change Logo"
           description='Choose an image to upload and set as your logo. This will be printed on reminders when the "Print Logo" setting is enabled.'
           accept="image/png,image/jpeg"
           clearable
