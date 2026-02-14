@@ -1,10 +1,11 @@
-import { List, ListItem, Stack, Switch, Title } from "@mantine/core";
+import { Stack, Switch, Title } from "@mantine/core";
 import useAxios from "axios-hooks";
 import type { Setting } from "../../prisma/generated/browser";
 import { useContext, useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconX } from "@tabler/icons-react";
 import { AppContext } from "../app-context";
+import ChangeLogo from "./change-logo";
 
 export default function AdminSettingsPage() {
   const appContext = useContext(AppContext);
@@ -65,6 +66,8 @@ export default function AdminSettingsPage() {
           ))}
         </Stack>
       ) : null}
+
+      <ChangeLogo />
     </Stack>
   );
 }

@@ -19,7 +19,7 @@
         "filesize": "^11.0.13",
         "mime-types": "^3.0.2",
         "multer": "^2.0.2",
-        "node-thermal-printer": "^4.5.0",
+        "node-thermal-printer": "^4.6.0",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "request": "^2.88.2",
@@ -503,7 +503,7 @@
 
     "node-fetch-native": ["node-fetch-native@1.6.7", "", {}, "sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q=="],
 
-    "node-thermal-printer": ["node-thermal-printer@4.5.0", "", { "dependencies": { "iconv-lite": "0.6.3", "pngjs": "7.0.0", "unorm": "1.6.0", "write-file-queue": "0.0.1" } }, "sha512-HJVyfq9Lr5+t1rDXlz9AgeNEqK1xsRzK5bP3DGmx60QVe5pmihrD18tyuM9xx4Eq5HqmQKyEqAK09Z4+9gyAcg=="],
+    "node-thermal-printer": ["node-thermal-printer@4.6.0", "", { "dependencies": { "iconv-lite": "0.6.3", "pngjs": "7.0.0", "unorm": "1.6.0", "write-file-queue": "0.0.1" } }, "sha512-nl/beSbygyBf4qv6zDZimiD78S2VrMrpffULZWUgKxNjMUfzV2S0MO4/Qposrn2QZosVrQSGYq49VN1HIecw+A=="],
 
     "nypm": ["nypm@0.6.2", "", { "dependencies": { "citty": "^0.1.6", "consola": "^3.4.2", "pathe": "^2.0.3", "pkg-types": "^2.3.0", "tinyexec": "^1.0.1" }, "bin": { "nypm": "dist/cli.mjs" } }, "sha512-7eM+hpOtrKrBDCh7Ypu2lJ9Z7PNZBdi/8AT3AX8xoCj43BBVHD0hPSTEvMtkMpfs8FCqBGhxB+uToIQimA111g=="],
 

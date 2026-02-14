@@ -1,11 +1,17 @@
 import express from "express";
-import { getStorageStatistics } from "../../utils/image-processor";
+import {
+  compressImage,
+  getStorageStatistics,
+} from "../../utils/image-processor";
 import { prisma } from "../../../prisma/db";
 import z from "zod";
 import {
   validateBody,
   type ValidatedRequest,
 } from "../../middleware/validate-body";
+import multer from "multer";
+
+const upload = multer();
 
 const settingSchema = z.strictObject({
   name: z.string(),
@@ -63,3 +69,26 @@ adminRouter.put(
     return res.json(updatedSetting);
   },
 );
+
+adminRouter.post("/logo", upload.single("logo"), async (req, res) => {
+  if (!req.file) {
+    return res.json({ error: "No file was uploaded" }).status(500);
+  }
+
+  // First try to compress new image before moving existing files
+  const compressed = await compressImage(req.file.buffer);
+
+  // Move current logo to a safe location (if there is a current logo)
+  const currentLogo = Bun.file("./app/assets/logo.png");
+  if (await currentLogo.exists()) {
+    await Bun.write(
+      `./app/assets/previous-logo-${new Date().toISOString()}.png`,
+      currentLogo,
+    );
+  }
+
+  // Write the new logo to disk
+  await Bun.write("./app/assets/logo.png", compressed);
+
+  return res.sendStatus(201);
+});

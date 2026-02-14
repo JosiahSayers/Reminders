@@ -9,7 +9,7 @@ export const uploadFolder =
 
 export async function processImage(
   image: Express.Multer.File,
-  message: Message
+  message: Message,
 ) {
   const imageRecord = await prisma.image.create({
     data: {
@@ -23,7 +23,7 @@ export async function processImage(
   await writeBufferToDisk(
     image.buffer,
     `${imageRecord.id}.${mime.extension(image.mimetype)}`,
-    true
+    true,
   );
 
   const compressed = await compressImage(image.buffer);
@@ -39,20 +39,20 @@ export async function processImage(
 async function writeBufferToDisk(
   buffer: Buffer,
   filename: string,
-  isOriginal: boolean
+  isOriginal: boolean,
 ) {
   const subFolder = isOriginal ? "originals" : "compressed";
   await Bun.write(`${uploadFolder}/${subFolder}/${filename}`, buffer);
 }
 
-async function compressImage(buffer: Buffer) {
+export async function compressImage(buffer: Buffer) {
   return sharp(buffer).resize(320).png().toBuffer();
 }
 
 export async function getStorageStatistics() {
   const directorySize = async (directory: string) =>
     Number(
-      (await $`du -s ${directory} | awk '{print$1}'`.quiet().text()).trim()
+      (await $`du -s ${directory} | awk '{print$1}'`.quiet().text()).trim(),
     );
   const originalsSize = await directorySize(`${uploadFolder}/originals`);
   const compressedSize = await directorySize(`${uploadFolder}/compressed`);

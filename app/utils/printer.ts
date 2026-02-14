@@ -2,7 +2,6 @@ import {
   ThermalPrinter,
   PrinterTypes,
   CharacterSet,
-  BreakLine,
 } from "node-thermal-printer";
 import { logger } from "./logger";
 import type { Image, Message, Reminder } from "../../prisma/generated/client";
@@ -14,7 +13,6 @@ export async function getPrinter() {
     interface: `tcp://${Bun.env.PRINTER_IP}`,
     characterSet: CharacterSet.PC852_LATIN2,
     width: 42,
-    breakLine: BreakLine.CHARACTER, // WORD and CHARACTER are swapped in the logic. https://github.com/Klemen1337/node-thermal-printer/issues/273
   });
 
   const isConnected = await printer.isPrinterConnected();

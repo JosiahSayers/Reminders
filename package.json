@@ -38,7 +38,7 @@
     "filesize": "^11.0.13",
     "mime-types": "^3.0.2",
     "multer": "^2.0.2",
-    "node-thermal-printer": "^4.5.0",
+    "node-thermal-printer": "^4.6.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "request": "^2.88.2",
