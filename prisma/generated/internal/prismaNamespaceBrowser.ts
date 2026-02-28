@@ -53,7 +53,8 @@ export const ModelName = {
   ReminderHistory: 'ReminderHistory',
   Message: 'Message',
   Image: 'Image',
-  Setting: 'Setting'
+  Setting: 'Setting',
+  Configuration: 'Configuration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -129,6 +130,18 @@ export const SettingScalarFieldEnum = {
 } as const
 
 export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
+
+
+export const ConfigurationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConfigurationScalarFieldEnum = (typeof ConfigurationScalarFieldEnum)[keyof typeof ConfigurationScalarFieldEnum]
 
 
 export const SortOrder = {

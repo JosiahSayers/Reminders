@@ -394,7 +394,8 @@ export const ModelName = {
   ReminderHistory: 'ReminderHistory',
   Message: 'Message',
   Image: 'Image',
-  Setting: 'Setting'
+  Setting: 'Setting',
+  Configuration: 'Configuration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "reminder" | "reminderHistory" | "message" | "image" | "setting"
+    modelProps: "reminder" | "reminderHistory" | "message" | "image" | "setting" | "configuration"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -784,6 +785,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Configuration: {
+      payload: Prisma.$ConfigurationPayload<ExtArgs>
+      fields: Prisma.ConfigurationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConfigurationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConfigurationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>
+        }
+        findFirst: {
+          args: Prisma.ConfigurationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConfigurationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>
+        }
+        findMany: {
+          args: Prisma.ConfigurationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>[]
+        }
+        create: {
+          args: Prisma.ConfigurationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>
+        }
+        createMany: {
+          args: Prisma.ConfigurationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConfigurationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>[]
+        }
+        delete: {
+          args: Prisma.ConfigurationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>
+        }
+        update: {
+          args: Prisma.ConfigurationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConfigurationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConfigurationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConfigurationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConfigurationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConfigurationPayload>
+        }
+        aggregate: {
+          args: Prisma.ConfigurationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConfiguration>
+        }
+        groupBy: {
+          args: Prisma.ConfigurationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConfigurationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConfigurationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConfigurationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -880,6 +955,18 @@ export const SettingScalarFieldEnum = {
 } as const
 
 export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
+
+
+export const ConfigurationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConfigurationScalarFieldEnum = (typeof ConfigurationScalarFieldEnum)[keyof typeof ConfigurationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1030,6 +1117,7 @@ export type GlobalOmitConfig = {
   message?: Prisma.MessageOmit
   image?: Prisma.ImageOmit
   setting?: Prisma.SettingOmit
+  configuration?: Prisma.ConfigurationOmit
 }
 
 /* Types for Logging */

@@ -9,9 +9,18 @@ import { uploadFolder } from "./image-processor";
 import { prisma } from "../../prisma/db";
 
 export async function getPrinter() {
+  const printerIpConfig = await prisma.configuration.findUnique({
+    where: { name: "Printer IP" },
+  });
+  if (!printerIpConfig?.value) {
+    throw new Error(
+      "No Printer IP configured. Visit the admin settings page and enter your printer's IP address.",
+    );
+  }
+
   const printer = new ThermalPrinter({
     type: PrinterTypes.EPSON,
-    interface: `tcp://${Bun.env.PRINTER_IP}`,
+    interface: `tcp://${printerIpConfig.value}`,
     characterSet: CharacterSet.PC852_LATIN2,
     width: 42,
   });

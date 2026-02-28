@@ -42,3 +42,8 @@ export type Image = Prisma.ImageModel
  * 
  */
 export type Setting = Prisma.SettingModel
+/**
+ * Model Configuration
+ * 
+ */
+export type Configuration = Prisma.ConfigurationModel

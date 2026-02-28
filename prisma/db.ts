@@ -1,5 +1,5 @@
 import { PrismaClient } from "./generated/client";
 import { PrismaLibSQL } from "@prisma/adapter-libsql";
 
-const adapter = new PrismaLibSQL({ url: process.env.DATABASE_URL || "" });
+const adapter = new PrismaLibSQL({ url: process.env.PRISMA_DATABASE_URL || "" });
 export const prisma = new PrismaClient({ adapter });

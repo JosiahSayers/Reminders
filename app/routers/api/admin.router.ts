@@ -20,6 +20,12 @@ const settingSchema = z.strictObject({
 });
 type SettingSchema = z.infer<typeof settingSchema>;
 
+const configurationSchema = z.strictObject({
+  name: z.string(),
+  value: z.string().optional().default(""),
+});
+type ConfigurationSchema = z.infer<typeof configurationSchema>;
+
 export const adminRouter = express.Router();
 
 adminRouter.get("/stats", async (req, res) => {
@@ -44,8 +50,9 @@ adminRouter.get("/stats", async (req, res) => {
 
 adminRouter.get("/settings", async (req, res) => {
   const settings = await prisma.setting.findMany();
+  const configurations = await prisma.configuration.findMany();
 
-  return res.json({ settings });
+  return res.json({ settings, configurations });
 });
 
 adminRouter.put(
@@ -70,6 +77,31 @@ adminRouter.put(
     return res.json(updatedSetting);
   },
 );
+
+adminRouter.put(
+  "/configurations",
+  validateBody(configurationSchema),
+  async (req: ValidatedRequest<ConfigurationSchema>, res) => {
+    let configuration = await prisma.configuration.findUnique({
+      where: { name: req.body.name },
+    });
+
+    if (!configuration) {
+      return res.json({ error: "Configuration not found" }).status(404);
+    }
+
+    const updatedConfiguration = await prisma.configuration.update({
+      where: { id: configuration.id },
+      data: { value: req.body.value },
+    });
+
+    return res.json(updatedConfiguration);
+  },
+);
+
+adminRouter.get("/logo", async (req, res) => {
+  return res.sendFile(`${process.cwd()}/app/assets/logo.png`);
+});
 
 adminRouter.post("/logo", upload.single("logo"), async (req, res) => {
   if (!req.file) {

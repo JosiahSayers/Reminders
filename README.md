@@ -11,7 +11,6 @@ docker run \
   -v "$(pwd)/database":"/usr/src/database":"rw" \ 
   -v "$(pwd)/uploads":"/usr/src/app/uploads":"rw" \
   -e "AI_GATEWAY_API_KEY"="" \
-  -e "PRINTER_IP"="" \
   -p "3000:3000/tcp" \
   josiahsayers15/reminders
 ```
@@ -26,4 +25,3 @@ docker run \
 
 - **AI_GATEWAY_API_KEY - OPTIONAL** - Used to enable AI generation of CRON strings from plain text descriptions
   - This key can be generated here: https://vercel.com/ai-gateway
-- **PRINTER_IP** - IP Address of your thermal printer
