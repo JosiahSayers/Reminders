@@ -1,17 +1,19 @@
-import { Button } from "@mantine/core";
+import { Button, Stack, Text } from "@mantine/core";
+import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconTrash, IconX } from "@tabler/icons-react";
 import useAxios from "axios-hooks";
 import { useEffect } from "react";
+import type { Quote } from "../../prisma/generated/browser";
 
 interface Props {
-  quoteId: number;
+  quote: Quote;
   onSuccess: () => void;
 }
 
-export default function DeleteQuoteButton({ quoteId, onSuccess }: Props) {
+export default function DeleteQuoteButton({ quote, onSuccess }: Props) {
   const [{ loading, error, response }, execute] = useAxios(
-    { url: `/api/quotes/${quoteId}`, method: "DELETE" },
+    { url: `/api/quotes/${quote.id}`, method: "DELETE" },
     { manual: true },
   );
 
@@ -37,13 +39,21 @@ export default function DeleteQuoteButton({ quoteId, onSuccess }: Props) {
     }
   }, [loading, error, response]);
 
+  const openModal = () =>
+    modals.openConfirmModal({
+      title: "Are you sure that you want to delete this quote?",
+      children: (
+        <Stack>
+          <Text size="sm">{quote.quote}</Text>
+          <Text size="sm">- {quote.author}</Text>
+        </Stack>
+      ),
+      labels: { confirm: "Confirm", cancel: "Cancel" },
+      onConfirm: () => execute(),
+    });
+
   return (
-    <Button
-      onClick={() => execute()}
-      loading={loading}
-      variant="outline"
-      color="red"
-    >
+    <Button onClick={openModal} loading={loading} variant="outline" color="red">
       Delete
     </Button>
   );

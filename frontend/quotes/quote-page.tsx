@@ -81,7 +81,7 @@ export default function QuotesPage() {
               <Table.Td>
                 <Group wrap="nowrap">
                   <PrintQuoteButton quoteId={quote.id} />
-                  <DeleteQuoteButton quoteId={quote.id} onSuccess={refetch} />
+                  <DeleteQuoteButton quote={quote} onSuccess={refetch} />
                 </Group>
               </Table.Td>
             </Table.Tr>
