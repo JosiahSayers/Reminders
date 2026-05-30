@@ -11,6 +11,7 @@ import {
   type ValidatedRequest,
 } from "../../middleware/validate-body";
 import multer from "multer";
+import { initializeQuotes } from "../../utils/quotes";
 
 const upload = multer();
 
@@ -73,6 +74,10 @@ adminRouter.put(
       data: { enabled: req.body.enabled },
     });
 
+    if (updatedSetting.name === "Send Quotes") {
+      await initializeQuotes({ setting: updatedSetting });
+    }
+
     // return it
     return res.json(updatedSetting);
   },
@@ -94,6 +99,10 @@ adminRouter.put(
       where: { id: configuration.id },
       data: { value: req.body.value },
     });
+
+    if (updatedConfiguration.name === "Quote CRON") {
+      await initializeQuotes({ configuration: updatedConfiguration });
+    }
 
     return res.json(updatedConfiguration);
   },

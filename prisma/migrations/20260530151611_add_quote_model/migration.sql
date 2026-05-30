@@ -1,0 +1,10 @@
+-- CreateTable
+CREATE TABLE "Quote" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    "quote" TEXT NOT NULL,
+    "author" TEXT NOT NULL,
+    "imageId" INTEGER,
+    CONSTRAINT "Quote_imageId_fkey" FOREIGN KEY ("imageId") REFERENCES "Image" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+);
