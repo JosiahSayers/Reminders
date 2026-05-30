@@ -18,6 +18,8 @@ export default function Navbar() {
 
       <NavbarLink href="/history" title="History" />
 
+      <NavbarLink href="/quotes" title="Quotes" />
+
       <Divider />
 
       <Stack justify="space-between" h="100%">

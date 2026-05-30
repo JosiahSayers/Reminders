@@ -85,7 +85,12 @@ export default function QuotesPage() {
         </Table.Tbody>
       </Table>
 
-      <Pagination total={data!.totalPages} value={page} onChange={setPage} />
+      <Group justify="space-between">
+        <Pagination total={data!.totalPages} value={page} onChange={setPage} />
+        <Text>
+          {data!.totalQuoteSize} {data!.totalQuoteSize > 1 ? "quotes" : "quote"}
+        </Text>
+      </Group>
     </Stack>
   );
 }
