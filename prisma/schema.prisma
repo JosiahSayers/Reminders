@@ -2,10 +2,10 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client"
-    output = "./generated"
-    engineType = "client"
-    runtime = "bun"
+  provider   = "prisma-client"
+  output     = "./generated"
+  engineType = "client"
+  runtime    = "bun"
 }
 
 datasource db {
@@ -14,36 +14,36 @@ datasource db {
 }
 
 model Reminder {
-  id Int @id @default(autoincrement())
-  title String
-  content String
-  cron String
+  id              Int    @id @default(autoincrement())
+  title           String
+  content         String
+  cron            String
   cronExplanation String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   archivedAt DateTime?
 
   history ReminderHistory[]
 }
 
 model ReminderHistory {
-  id Int @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   successful Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  reminder Reminder @relation(fields: [reminderId], references: [id])
+
+  reminder   Reminder @relation(fields: [reminderId], references: [id])
   reminderId Int
 }
 
 model Message {
-  id Int @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   successful Boolean
 
-  title String?
-  content String?
+  title       String?
+  content     String?
   includeLogo Boolean @default(true)
 
   createdAt DateTime @default(now())
@@ -53,25 +53,26 @@ model Message {
 
 model Image {
   id Int @id @default(autoincrement())
-  
+
   originalSizeInBytes Int
-  originalFilename String
+  originalFilename    String
 
   convertedSizeInBytes Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  message Message @relation(fields: [messageId], references: [id])
-  messageId Int @unique
+  message   Message @relation(fields: [messageId], references: [id])
+  messageId Int     @unique
+  quotes    Quote[]
 }
 
 model Setting {
   id Int @id @default(autoincrement())
 
-  name String @unique
+  name        String  @unique
   description String?
-  enabled Boolean
+  enabled     Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -80,10 +81,22 @@ model Setting {
 model Configuration {
   id Int @id @default(autoincrement())
 
-  name String @unique
+  name        String  @unique
   description String?
-  value String
+  value       String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Quote {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quote  String
+  author String
+
+  image   Image? @relation(fields: [imageId], references: [id])
+  imageId Int?
 }

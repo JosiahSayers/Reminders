@@ -109,6 +109,15 @@ async function main() {
     ],
   });
 
+  await prisma.quote.createMany({
+    data: [
+      {
+        quote: "Your only job is to be your truest self.",
+        author: "Chelsie Diane",
+      },
+    ],
+  });
+
   console.log("Seed data inserted!");
 }
 
