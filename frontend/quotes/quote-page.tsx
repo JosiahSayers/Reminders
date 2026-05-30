@@ -13,6 +13,7 @@ import {
 import DeleteQuoteButton from "./delete-button";
 import { modals } from "@mantine/modals";
 import CreateQuoteModal from "../modals/create-quote-modal";
+import PrintQuoteButton from "./print-now-button";
 
 type ApiData = {
   quotes: Array<Quote>;
@@ -73,12 +74,15 @@ export default function QuotesPage() {
         <Table.Tbody>
           {data!.quotes.map((quote) => (
             <Table.Tr key={quote.id}>
-              <Table.Td width="fit-content">
-                <Text truncate="end">{quote.quote}</Text>
-              </Table.Td>
-              <Table.Td>{quote.author}</Table.Td>
               <Table.Td>
-                <DeleteQuoteButton quoteId={quote.id} onSuccess={refetch} />
+                <Text w="50vw">{quote.quote}</Text>
+              </Table.Td>
+              <Table.Td width="fit-content">{quote.author}</Table.Td>
+              <Table.Td>
+                <Group wrap="nowrap">
+                  <PrintQuoteButton quoteId={quote.id} />
+                  <DeleteQuoteButton quoteId={quote.id} onSuccess={refetch} />
+                </Group>
               </Table.Td>
             </Table.Tr>
           ))}

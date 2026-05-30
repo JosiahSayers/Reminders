@@ -8,6 +8,7 @@ import {
 import { prisma } from "../../../prisma/db";
 import { logger } from "../../utils/logger";
 import type { Image } from "../../../prisma/generated/client";
+import { executeQuote } from "../../execute-reminder";
 
 export const quotesRouter = Router();
 
@@ -69,6 +70,20 @@ quotesRouter.delete("/:id", async (req, res, next) => {
   }
 
   logger.info("Deleted a quote", { quote: deleted, deletedImage });
+
+  return res.sendStatus(200);
+});
+
+quotesRouter.post("/:id/print", async (req, res, next) => {
+  const quote = await prisma.quote.findUnique({
+    where: { id: Number(req.params.id) },
+  });
+
+  if (!quote) {
+    return res.sendStatus(404);
+  }
+
+  await executeQuote(quote);
 
   return res.sendStatus(200);
 });

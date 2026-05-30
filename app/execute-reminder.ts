@@ -19,34 +19,39 @@ export async function executeReminder(reminder: Reminder) {
   }
 }
 
-export async function executeQuote() {
+export async function executeQuote(quote?: Quote) {
   let successful = true;
-  const [randomQuote] = await prisma.$queryRaw<
-    Array<Quote>
-  >`SELECT * FROM Quote WHERE id IN (SELECT id FROM Quote ORDER BY RANDOM() LIMIT 1)`;
-  if (!randomQuote) {
-    logger.warn("Unable to retrieve a quote");
-    return;
+  let quoteToSend = quote;
+
+  if (!quoteToSend) {
+    const [randomQuote] = await prisma.$queryRaw<
+      Array<Quote>
+    >`SELECT * FROM Quote WHERE id IN (SELECT id FROM Quote ORDER BY RANDOM() LIMIT 1)`;
+    if (!randomQuote) {
+      logger.warn("Unable to retrieve a quote");
+      return;
+    }
+    quoteToSend = randomQuote;
   }
 
-  const image = randomQuote.imageId
-    ? await prisma.image.findUnique({ where: { id: randomQuote.imageId } })
+  const image = quoteToSend.imageId
+    ? await prisma.image.findUnique({ where: { id: quoteToSend.imageId } })
     : null;
 
   const message = await prisma.message.create({
     data: {
-      content: `${randomQuote.quote}\n\n- ${randomQuote.author}`,
+      content: `${quoteToSend.quote}\n\n- ${quoteToSend.author}`,
       successful: false,
       includeLogo: false,
     },
   });
 
   try {
-    logger.info("Sending quote", { randomQuote, message });
+    logger.info("Sending quote", { quoteToSend, message });
     await printMessage({ ...message, image });
   } catch (e) {
     successful = false;
-    logger.error("Error sending quote", e, { randomQuote, message });
+    logger.error("Error sending quote", e, { quoteToSend, message });
   } finally {
     await prisma.message.update({
       where: { id: message.id },

@@ -1,19 +1,26 @@
 import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { IconTrash, IconX } from "@tabler/icons-react";
+import { IconReceipt, IconX } from "@tabler/icons-react";
 import useAxios from "axios-hooks";
 import { useEffect } from "react";
 
 interface Props {
   quoteId: number;
-  onSuccess: () => void;
 }
 
-export default function DeleteQuoteButton({ quoteId, onSuccess }: Props) {
+export default function PrintQuoteButton({ quoteId }: Props) {
   const [{ loading, error, response }, execute] = useAxios(
-    { url: `/api/quotes/${quoteId}`, method: "DELETE" },
+    { url: `/api/quotes/${quoteId}/print`, method: "POST" },
     { manual: true },
   );
+
+  const handleClick = async () => {
+    try {
+      await execute();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     if (loading) return;
@@ -27,24 +34,17 @@ export default function DeleteQuoteButton({ quoteId, onSuccess }: Props) {
       });
     } else if (response) {
       notifications.show({
-        title: "Quote Deleted!",
-        message:
-          "This quote will no longer be available when printing a random quote.",
+        title: "Quote Sent!",
+        message: "It should be on the printer soon.",
         color: "green",
-        icon: <IconTrash />,
+        icon: <IconReceipt />,
       });
-      onSuccess();
     }
   }, [loading, error, response]);
 
   return (
-    <Button
-      onClick={() => execute()}
-      loading={loading}
-      variant="outline"
-      color="red"
-    >
-      Delete
+    <Button onClick={handleClick} loading={loading} variant="outline">
+      Print Now
     </Button>
   );
 }
